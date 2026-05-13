@@ -3,6 +3,7 @@ void main() {
     final int LEVEL_INCREASEMENT = 1;
     final int GRADE_GAP = 3;
     double mathInput, englishInput, literatureInput, average, minGrade;
+    boolean isMinGradeTooFarAverage;
     char rate;
 
     while (true) {
@@ -14,7 +15,7 @@ void main() {
         System.out.print("Enter your literature point: ");
         literatureInput = scanner.nextDouble();
 
-        if (mathInput < 0 || mathInput > 10 || englishInput < 0 || englishInput > 10 || literatureInput < 0 || literatureInput > 10) {
+        if (!_IsInputValid(mathInput) || !_IsInputValid(englishInput) || !_IsInputValid(literatureInput)) {
             System.out.println("Grade between 0-10");
             continue;
         }
@@ -28,12 +29,19 @@ void main() {
 
 
         minGrade = Math.min(Math.min(mathInput, englishInput), literatureInput);
-        rate = average - GRADE_GAP > minGrade ? _RatingCalculation(minGrade + LEVEL_INCREASEMENT) : _RatingCalculation(average);
+        isMinGradeTooFarAverage = average - GRADE_GAP > minGrade;
+        rate = isMinGradeTooFarAverage ? _RatingCalculation(minGrade + LEVEL_INCREASEMENT) : _RatingCalculation(average);
         _DisplayRating(rate, average, mathInput, englishInput, literatureInput);
     }
 }
 
+private boolean _IsInputValid(double grade) {
+    return grade >= 0 && grade <= 10;
+}
+
 private char _RatingCalculation(double grade) {
+    // Minh nen chon giua viec viet de hieu: else if (grade >= 5 && grade < 6) return 'D';
+    // Hay giam viec phai check nhung dieu kien du thua nhung khien code kho hieu hon else if (grade < 6) return 'D';
    if (grade < 5) return 'F';
    else if (grade >= 5 && grade < 6) return 'D';
    else if (grade >= 6 && grade < 7) return 'C';
