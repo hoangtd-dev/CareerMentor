@@ -5,9 +5,9 @@ void main() {
     double mathInput, englishInput, literatureInput, average, minGrade;
     boolean isMinGradeTooFarAverage;
     boolean isLoop = true;
-    char rate;
 
     while (isLoop) {
+        char rate = 'F';
         System.out.println("-----------------------------------");
         System.out.print("Enter your math point: ");
         mathInput = scanner.nextDouble();
@@ -24,14 +24,12 @@ void main() {
         average = (mathInput + englishInput + literatureInput) / 3;
         minGrade = Math.min(Math.min(mathInput, englishInput), literatureInput);
 
-        if (minGrade < 5) {
-            _displayRating('F', average, mathInput, englishInput, literatureInput);
-        } else {
+        if (minGrade >= 5) {
             isMinGradeTooFarAverage = average - GRADE_GAP > minGrade;
             rate = isMinGradeTooFarAverage ? _getRatingByGrade(minGrade + LEVEL_INCREASEMENT) : _getRatingByGrade(average);
-            _displayRating(rate, average, mathInput, englishInput, literatureInput);
         }
 
+        _displayRating(rate, average, mathInput, englishInput, literatureInput);
         isLoop = _askToContinue(scanner);
     }
 
