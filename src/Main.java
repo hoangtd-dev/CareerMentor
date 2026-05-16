@@ -4,9 +4,10 @@ void main() {
     final int GRADE_GAP = 3;
     double mathInput, englishInput, literatureInput, average, minGrade;
     boolean isMinGradeTooFarAverage;
+    boolean isLoop = true;
     char rate;
 
-    while (true) {
+    while (isLoop) {
         System.out.println("-----------------------------------");
         System.out.print("Enter your math point: ");
         mathInput = scanner.nextDouble();
@@ -15,31 +16,39 @@ void main() {
         System.out.print("Enter your literature point: ");
         literatureInput = scanner.nextDouble();
 
-        if (!_IsInputValid(mathInput) || !_IsInputValid(englishInput) || !_IsInputValid(literatureInput)) {
+        if (!_checkInputValid(mathInput) || !_checkInputValid(englishInput) || !_checkInputValid(literatureInput)) {
             System.out.println("Grade between 0-10");
             continue;
         }
 
         average = (mathInput + englishInput + literatureInput) / 3;
+        minGrade = Math.min(Math.min(mathInput, englishInput), literatureInput);
 
-        if (mathInput < 5 || englishInput < 5 || literatureInput < 5) {
-            _DisplayRating('F', average, mathInput, englishInput, literatureInput);
-            continue;
+        if (minGrade < 5) {
+            _displayRating('F', average, mathInput, englishInput, literatureInput);
+        } else {
+            isMinGradeTooFarAverage = average - GRADE_GAP > minGrade;
+            rate = isMinGradeTooFarAverage ? _getRatingByGrade(minGrade + LEVEL_INCREASEMENT) : _getRatingByGrade(average);
+            _displayRating(rate, average, mathInput, englishInput, literatureInput);
         }
 
-
-        minGrade = Math.min(Math.min(mathInput, englishInput), literatureInput);
-        isMinGradeTooFarAverage = average - GRADE_GAP > minGrade;
-        rate = isMinGradeTooFarAverage ? _RatingCalculation(minGrade + LEVEL_INCREASEMENT) : _RatingCalculation(average);
-        _DisplayRating(rate, average, mathInput, englishInput, literatureInput);
+        isLoop = _askToContinue(scanner);
     }
+
+    scanner.close();
 }
 
-private boolean _IsInputValid(double grade) {
+private boolean _askToContinue(Scanner scanner) {
+    System.out.print("Press 'Y' to continue, otherwise it will exit: ");
+    String answer = scanner.next();
+    return answer.equalsIgnoreCase("y");
+}
+
+private boolean _checkInputValid(double grade) {
     return grade >= 0 && grade <= 10;
 }
 
-private char _RatingCalculation(double grade) {
+private char _getRatingByGrade(double grade) {
     // Minh nen chon giua viec viet de hieu: else if (grade >= 5 && grade < 6) return 'D';
     // Hay giam viec phai check nhung dieu kien du thua nhung khien code kho hieu hon else if (grade < 6) return 'D';
    if (grade < 5) return 'F';
@@ -50,7 +59,7 @@ private char _RatingCalculation(double grade) {
    else return 'S';
 }
 
-private void _DisplayRating(char rate, double average, double math, double english, double literature) {
+private void _displayRating(char rate, double average, double math, double english, double literature) {
     String formatAverage = String.format("%.2f", average);
     String template = "Math: " + math + "\nEnglish: " + english + "\nLiterature: " + literature + "\nAverage: " + formatAverage + "\n=> ";
     switch (rate) {
