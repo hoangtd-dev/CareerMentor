@@ -27,15 +27,15 @@
                │              │                             │
           uses │         uses │                        uses │
                ▼              ▼                             ▼
-    ┌──────────────┐   ┌──────────────────────┐   ┌────────────────┐
-    │    FileDB    │   │       User           │   │  ScannerUtils  │
-    ├──────────────┤   ├──────────────────────┤   ├────────────────┤
-    │ - _path      │   │ - firstname: String  │   │ - scanner      │
-    ├──────────────┤   │ - username: String   │   ├────────────────┤
-    │ + save(data) │   │ ....                 │   │ + inputNumber()│
-    │ + load()     │   ├──────────────────────┤   │ + inputString()│
-    └──────────────┘   │ + mappingToRawData() │   │ + close()      │
-                       │ + checkCredential()  │   └────────────────┘
+    ┌──────────────┐   ┌──────────────────────┐   ┌─────────────────────────┐
+    │    FileDB    │   │       User           │   │  ScannerUtils           │
+    ├──────────────┤   ├──────────────────────┤   ├─────────────────────────┤
+    │ - path       │   │ - firstname          │   │ - scanner: Scanner      │
+    ├──────────────┤   │ - username           │   ├─────────────────────────┤
+    │ + save()     │   │ ....                 │   │ + inputNumber()         │
+    │ + load()     │   ├──────────────────────┤   │ + inputString()         │
+    └──────────────┘   │ + mappingToRawData() │   │ + close()               │
+                       │ + checkCredential()  │   └─────────────────────────┘
                        │ + searchByName()     │
                        │ + toString()         │
                        └──────────────────────┘
