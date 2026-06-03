@@ -1,24 +1,25 @@
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class UserManagementSystem {
     private final ArrayList<User> _user;
     private final FileDB _db;
-    private final Scanner _scanner;
 
-    public UserManagementSystem() {
+    private ScannerUtils scanner;
+    private boolean _isRunning = true;
+
+    public UserManagementSystem(ScannerUtils scanner) {
         _user = new ArrayList<>();
         _db = new FileDB("user.txt");
-        _scanner = new Scanner(System.in);
+        this.scanner = scanner;
         ArrayList<String> rawData = _db.readTxtFile();
         _mappingUser(rawData);
     }
 
     public void run() {
-        while (true) {
+        while (_isRunning) {
             _menu();
             System.out.print("Your choice: ");
-            int selection = ScannerUtils.InputNumber(_scanner);
+            int selection = scanner.InputNumber();
             _handleSelection(selection);
         }
     }
@@ -45,6 +46,7 @@ public class UserManagementSystem {
         System.out.println("1. Register");
         System.out.println("2. View User");
         System.out.println("3. Login");
+        System.out.println("4. Exit");
     }
 
     private void _viewUserMenu() {
@@ -55,15 +57,15 @@ public class UserManagementSystem {
 
     private void _register() {
         System.out.print("fist name: ");
-        String firstname = ScannerUtils.InputString(_scanner);
+        String firstname = scanner.InputString();
         System.out.print("last name: ");
-        String lastname = ScannerUtils.InputString(_scanner);
+        String lastname = scanner.InputString();
         System.out.print("dob (YYYY-MM-dd): ");
-        String dob = ScannerUtils.InputString(_scanner);
+        String dob = scanner.InputString();
         System.out.print("username: ");
-        String username = ScannerUtils.InputString(_scanner);
+        String username = scanner.InputString();
         System.out.print("password: ");
-        String password = ScannerUtils.InputString(_scanner);
+        String password = scanner.InputString();
 
         _user.add(new User(firstname, lastname, dob, username, password));
 
@@ -80,7 +82,7 @@ public class UserManagementSystem {
 
     private void _searchByName() {
         System.out.print("Find user by first name or last name: ");
-        String searchText = ScannerUtils.InputString(_scanner);
+        String searchText = scanner.InputString();
 
         for (User user : _user) {
             boolean result = user.searchByName(searchText);
@@ -94,7 +96,7 @@ public class UserManagementSystem {
     private void _viewUser() {
         _viewUserMenu();
         System.out.print("Your choice: ");
-        int subOption = ScannerUtils.InputNumber(_scanner);
+        int subOption = scanner.InputNumber();
 
         switch (subOption) {
             case 1:
@@ -111,9 +113,9 @@ public class UserManagementSystem {
 
     private void _login() {
         System.out.print("username: ");
-        String username = ScannerUtils.InputString(_scanner);
+        String username = scanner.InputString();
         System.out.print("password: ");
-        String password = ScannerUtils.InputString(_scanner);
+        String password = scanner.InputString();
         int result = 0;
 
         for (User user : _user) {
@@ -144,6 +146,9 @@ public class UserManagementSystem {
                 break;
             case 3:
                 _login();
+                break;
+            case 4:
+                _isRunning = false;
                 break;
             default:
                 System.out.println("Choose 1 or 2 or 3 only");

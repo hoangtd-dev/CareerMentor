@@ -1,6 +1,8 @@
 class Main {
   public static void main(String[] args){
-    UserManagementSystem system = new UserManagementSystem();
+    ScannerUtils scanner = new ScannerUtils();
+    UserManagementSystem system = new UserManagementSystem(scanner);
     system.run();
+    scanner.close();
   }
 }

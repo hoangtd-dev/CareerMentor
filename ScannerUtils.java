@@ -1,7 +1,11 @@
 import java.util.Scanner;
 
 public class ScannerUtils {
-    public static int InputNumber(Scanner scanner) {
+    Scanner scanner = new Scanner(System.in);
+
+    public ScannerUtils() {}
+
+    public int InputNumber() {
         try {
             return scanner.nextInt();
         } catch (Exception e) {
@@ -11,7 +15,7 @@ public class ScannerUtils {
         }
     }
 
-    public static String InputString(Scanner scanner) {
+    public String InputString() {
         try {
             return scanner.next();
         } catch (Exception e) {
@@ -19,5 +23,9 @@ public class ScannerUtils {
             System.out.println("Input should be String !!!!");
             return null;
         }
+    }
+
+    public void close() {
+        scanner.close();
     }
 }
