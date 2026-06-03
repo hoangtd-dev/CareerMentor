@@ -1,31 +1,31 @@
 import java.util.Scanner;
 
 public class ScannerUtils {
-    Scanner scanner = new Scanner(System.in);
+    private final Scanner _scanner = new Scanner(System.in);
 
     public ScannerUtils() {}
 
-    public int InputNumber() {
+    public int inputNumber() {
         try {
-            return scanner.nextInt();
+            return _scanner.nextInt();
         } catch (Exception e) {
-            scanner.nextLine();
+            _scanner.nextLine();
             System.out.println("Input should be number !!!!");
             return -1;
         }
     }
 
-    public String InputString() {
+    public String inputString() {
         try {
-            return scanner.next();
+            return _scanner.next();
         } catch (Exception e) {
-            scanner.nextLine();
+            _scanner.nextLine();
             System.out.println("Input should be String !!!!");
             return null;
         }
     }
 
     public void close() {
-        scanner.close();
+        _scanner.close();
     }
 }

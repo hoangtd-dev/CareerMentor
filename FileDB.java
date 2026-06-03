@@ -11,7 +11,7 @@ public class FileDB {
         _path = path;
     }
 
-    public void writeTxtFile(String data) {
+    public void save(String data) {
         if (!_path.endsWith(".txt")) return;
 
         try (FileWriter myWriter = new FileWriter(_path)) {
@@ -21,7 +21,7 @@ public class FileDB {
         }
     }
 
-    public ArrayList<String> readTxtFile() {
+    public ArrayList<String> load() {
         if (!_path.endsWith(".txt")) return null;
 
         File db = new File(_path);
