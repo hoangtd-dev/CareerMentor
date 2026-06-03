@@ -68,14 +68,8 @@ public class UserManagementSystem {
         String firstname = scanner.inputString();
         System.out.print("last name: ");
         String lastname = scanner.inputString();
-        LocalDate dob = null;
-        
-        while (dob == null) {
-            System.out.print("dob (YYYY-MM-dd): ");
-            dob = scanner.inputDate();
-        }
-
-        System.out.print("username: ");
+        System.out.print("dob (YYYY-MM-dd): ");
+        LocalDate dob = scanner.inputDate();;
         String username = scanner.inputString();
         System.out.print("password: ");
         String password = scanner.inputString();
@@ -112,15 +106,9 @@ public class UserManagementSystem {
         int subOption = scanner.inputNumber();
 
         switch (subOption) {
-            case 1:
-                _displayAllUsers();
-                break;
-            case 2:
-                _searchByName();
-                break;
-            default:
-                System.out.println("Choose 1 or 2 only");
-                break;
+            case 1 -> _displayAllUsers();
+            case 2 -> _searchByName();
+            default -> System.out.println("Choose 1 or 2 only");
         }
     }
 
@@ -151,21 +139,11 @@ public class UserManagementSystem {
 
     private void _handleSelection(int selection) {
         switch (selection) {
-            case 1:
-                _register();
-                break;
-            case 2:
-                _viewUser();
-                break;
-            case 3:
-                _login();
-                break;
-            case 4:
-                _isRunning = false;
-                break;
-            default:
-                System.out.println("Choose 1 or 2 or 3 only");
-                break;
+            case 1 -> _register();
+            case 2 -> _viewUser();
+            case 3 -> _login();
+            case 4 ->_isRunning = false;
+            default -> System.out.println("Choose 1 or 2 or 3 only");
         }
     }
 }

@@ -9,12 +9,13 @@ public class ScannerUtils {
     public ScannerUtils() {}
 
     public int inputNumber() {
-        try {
-            return _scanner.nextInt();
-        } catch (Exception e) {
-            _scanner.nextLine();
-            System.out.println("Input should be number !!!!");
-            return -1;
+        while (true) {
+            try {
+                return _scanner.nextInt();
+            } catch (Exception e) {
+                _scanner.nextLine();
+                System.out.println("Input should be number !!!!");
+            }
         }
     }
 
@@ -29,13 +30,14 @@ public class ScannerUtils {
     }
 
     public LocalDate inputDate() {
-        try {
-            String dob = _scanner.next();
-            return LocalDate.parse(dob, formatter);
-        } catch (Exception e) {
-            _scanner.nextLine();
-            System.out.println("Please follow the date format: YYYY-MM-dd !!!");
-            return null;
+        while (true) {
+            try {
+                String dob = _scanner.next();
+                return LocalDate.parse(dob, formatter);
+            } catch (Exception e) {
+                _scanner.nextLine();
+                System.out.println("Please follow the date format: YYYY-MM-dd !!!");
+            }
         }
     }
 
