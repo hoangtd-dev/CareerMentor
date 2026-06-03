@@ -5,6 +5,7 @@
                     └───────────────┘             │ - scanner: Scanner      │
                             │                     ├─────────────────────────┤
                             |                     │ + inputNumber()         │
+                            |                     │ + inputDate()           │
                             |                     │ + inputString()         │
                             │ run()               │ + close()               │
                             │                     └─────────────────────────┘
