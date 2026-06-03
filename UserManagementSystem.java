@@ -34,7 +34,7 @@ public class UserManagementSystem {
         String data = "";
 
         for (User user : _user) {
-            data += user.toString() + "\n";
+            data += user.mappingToRawData() + "\n";
         }
 
         _db.writeTxtFile(data);
@@ -74,7 +74,7 @@ public class UserManagementSystem {
 
     private void _displayAllUsers() {
         for (User user : _user) {
-            user.displayInformation();
+            System.out.println(user.toString());
         }
     }
 
@@ -86,7 +86,7 @@ public class UserManagementSystem {
             boolean result = user.searchByName(searchText);
 
             if (result) {
-                user.displayInformation();
+                System.out.println(user.toString());
             }
         }
     }

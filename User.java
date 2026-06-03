@@ -26,8 +26,8 @@ public class User {
         _failedTime = failedTime;
     }
 
-    public void displayInformation() {
-        System.out.println("Firstname: " + _firstname + " - Lastname: " + _lastname + " - Dob: " + _dob);
+    public String mappingToRawData() {
+        return String.format("%s,%s,%s,%s,%s,%d", _firstname, _lastname, _dob, _username, _password, _failedTime);
     }
 
     public int checkCredential(String username, String password) {
@@ -48,11 +48,12 @@ public class User {
     }
 
     public boolean searchByName(String searchText) {
-        return _firstname.contains(searchText) || _lastname.contains(searchText);
+        String search = searchText.toLowerCase();
+        return _firstname.toLowerCase().contains(search) || _lastname.toLowerCase().contains(search);
     }
 
     @Override
     public String toString() {
-        return String.format("%s,%s,%s,%s,%s,%d", _firstname, _lastname, _dob, _username, _password, _failedTime);
+        return String.format("First name: %s - Last name: %s - Dob: %s - Username: %s", _firstname, _lastname, _dob, _username);
     }
 }
