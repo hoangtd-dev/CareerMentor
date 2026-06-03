@@ -1,52 +1,26 @@
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
-public class UserManagementSystem {
-    private final ArrayList<User> _users;
-    private final FileDB _db;
+import handlers.UserHandler;
+import models.User;
+import utils.ScannerUtils;
 
-    private ScannerUtils scanner;
+public class UserManagementSystem {
+    private final ScannerUtils _scanner;
+    private final UserHandler _handler;
     private boolean _isRunning = true;
 
-    public UserManagementSystem(ScannerUtils scanner) {
-        _users = new ArrayList<>();
-        _db = new FileDB("user.txt");
-        this.scanner = scanner;
-        ArrayList<String> rawData = _db.load();
-        _mappingUser(rawData);
+    public UserManagementSystem(ScannerUtils scanner, UserHandler handler) {
+        _scanner = scanner;
+        _handler = handler;
     }
 
     public void run() {
         while (_isRunning) {
             _showMenu();
-            System.out.print("Your choice: ");
-            int selection = scanner.inputNumber();
+            int selection = _scanner.inputNumber("Your choice: ");
             _handleSelection(selection);
         }
-    }
-
-    private void _mappingUser(ArrayList<String> rawData) {
-        for (String data : rawData) {
-            String[] splitData = data.split(",");
-            _users.add(new User(
-                splitData[0], 
-                splitData[1], 
-                LocalDate.parse(splitData[2], DateTimeFormatter.ofPattern("yyyy-M-d")), 
-                splitData[3], 
-                splitData[4], 
-                Integer.parseInt(splitData[5])));
-        }
-    }
-
-    private void _updateDatabase() {
-        String data = "";
-
-        for (User user : _users) {
-            data += user.mappingToRawData() + "\n";
-        }
-
-        _db.save(data);
     }
 
     private void _showMenu() {
@@ -63,47 +37,51 @@ public class UserManagementSystem {
         System.out.println("2. Find by name");
     }
 
-    private void _register() {
-        System.out.print("fist name: ");
-        String firstname = scanner.inputString();
-        System.out.print("last name: ");
-        String lastname = scanner.inputString();
-        System.out.print("dob (YYYY-MM-dd): ");
-        LocalDate dob = scanner.inputDate();;
-        String username = scanner.inputString();
-        System.out.print("password: ");
-        String password = scanner.inputString();
+    private void _handleSelection(int selection) {
+        switch (selection) {
+            case 1 -> _handleRegister();
+            case 2 -> _handleViewUser();
+            case 3 -> _login();
+            case 4 -> _isRunning = false;
+            default -> System.out.println("Choose 1 or 2 or 3 only");
+        }
+    }
 
-        _users.add(new User(firstname, lastname, dob, username, password));
+    private void _handleRegister() {
+        String firstname = _scanner.inputString("fist name: ");
+        String lastname = _scanner.inputString("last name: ");
+        LocalDate dob = _scanner.inputDate("dob (YYYY-MM-dd): ");
+        String username = _scanner.inputString("username: ");
+        String password = _scanner.inputString("password: ");
 
-        _updateDatabase();
+        _handler.register(firstname, lastname, dob, username, password);
 
         System.out.println("User Register Successful !!!");
     }
 
     private void _displayAllUsers() {
-        for (User user : _users) {
+        ArrayList<User> users = _handler.getAllUsers();
+        for (User user : users) {
             System.out.println(user.toString());
         }
     }
 
     private void _searchByName() {
-        System.out.print("Find user by first name or last name: ");
-        String searchText = scanner.inputString();
+        String searchText = _scanner.inputString("Find user by first name or last name: ");
+        ArrayList<User> users = _handler.getByName(searchText);
 
-        for (User user : _users) {
-            boolean result = user.hasName(searchText);
-
-            if (result) {
+        if (users.size() > 0) {
+            for (User user : users) {
                 System.out.println(user.toString());
             }
+        } else {
+            System.out.println("No user found with name: " + searchText);
         }
     }
 
-    private void _viewUser() {
+    private void _handleViewUser() {
         _showUserMenu();
-        System.out.print("Your choice: ");
-        int subOption = scanner.inputNumber();
+        int subOption = _scanner.inputNumber("Your choice: ");
 
         switch (subOption) {
             case 1 -> _displayAllUsers();
@@ -113,37 +91,14 @@ public class UserManagementSystem {
     }
 
     private void _login() {
-        System.out.print("username: ");
-        String username = scanner.inputString();
-        System.out.print("password: ");
-        String password = scanner.inputString();
-        int result = 0;
+        String username = _scanner.inputString("username: ");
+        String password = _scanner.inputString("password: ");
+        int result = _handler.login(username, password);
 
-        for (User user : _users) {
-            result = user.checkCredential(username, password);
-
-            if (result == -1 || result == 1) {
-                _updateDatabase();
-            }
-
-            if (result == 1) {
-                System.out.println("Login successful");
-                break;
-            }
-        }
-
-        if (result == 0 || result == -1) {
-            System.out.println("Username or password is wrong");
-        }
-    }
-
-    private void _handleSelection(int selection) {
-        switch (selection) {
-            case 1 -> _register();
-            case 2 -> _viewUser();
-            case 3 -> _login();
-            case 4 ->_isRunning = false;
-            default -> System.out.println("Choose 1 or 2 or 3 only");
+        switch (result) {
+            case 1 -> System.out.println("Login successful");
+            case -1 -> System.out.println("User is locked !!!");
+            default -> System.out.println("Username or password is wrong");
         }
     }
 }

@@ -1,3 +1,5 @@
+package utils;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
@@ -6,11 +8,13 @@ public class ScannerUtils {
     private final Scanner _scanner = new Scanner(System.in);
     private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-M-d");
 
-    public ScannerUtils() {}
+    public ScannerUtils() {
+    }
 
-    public int inputNumber() {
+    public int inputNumber(String placeholder) {
         while (true) {
             try {
+                System.out.print(placeholder);
                 return _scanner.nextInt();
             } catch (Exception e) {
                 _scanner.nextLine();
@@ -19,8 +23,9 @@ public class ScannerUtils {
         }
     }
 
-    public String inputString() {
+    public String inputString(String placeholder) {
         try {
+            System.out.print(placeholder);
             return _scanner.next();
         } catch (Exception e) {
             _scanner.nextLine();
@@ -29,9 +34,10 @@ public class ScannerUtils {
         }
     }
 
-    public LocalDate inputDate() {
+    public LocalDate inputDate(String placeholder) {
         while (true) {
             try {
+                System.out.print(placeholder);
                 String dob = _scanner.next();
                 return LocalDate.parse(dob, formatter);
             } catch (Exception e) {

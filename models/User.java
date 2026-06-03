@@ -1,4 +1,7 @@
+package models;
+
 import java.time.LocalDate;
+
 public class User {
     private String _firstname;
     private String _lastname;
@@ -28,21 +31,21 @@ public class User {
         return String.format("%s,%s,%s,%s,%s,%d", _firstname, _lastname, _dob, _username, _password, _failedTime);
     }
 
-    public int checkCredential(String username, String password) {
-        if (!_username.equals(username)) return 0;
+    public boolean isLooked() {
+        return _failedTime == 3;
+    }
 
-        if (_failedTime == 3) {
-            System.out.println("Account is locked !!!");
-            return 0;
-        }
+    public boolean checkCredential(String username, String password) {
+        if (!_username.equals(username))
+            return false;
 
         if (!_password.equals(password)) {
             _failedTime++;
-            return -1;
+            return false;
         }
 
         _failedTime = 0;
-        return 1;
+        return true;
     }
 
     public boolean hasName(String searchText) {
