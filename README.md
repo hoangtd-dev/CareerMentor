@@ -1,48 +1,61 @@
 ```
-                                                  ┌─────────────────────────┐
-                    ┌───────────────┐   creates   │  ScannerUtils           │
-                    │     Main      │─────────────├─────────────────────────┤
-                    └───────────────┘             │ - scanner: Scanner      │
-                            │                     ├─────────────────────────┤
-                            |                     │ + inputNumber()         │
-                            |                     │ + inputDate()           │
-                            |                     │ + inputString()         │
-                            │ run()               │ + close()               │
-                            │                     └─────────────────────────┘
-                            │                             |
-                            ▼                      inject |
-          ┌──────────────────────────────────────────────────────┐
-          │       UserManagementSystem                           │
-          ├──────────────────────────────────────────────────────┤
-          │ - fileDB   : FileDB                                  │
-          │ - scanner  : ScannerUtils                            │
-          │ - users    : List<User>                              │
-          ├──────────────────────────────────────────────────────┤
-          │ + run()                                              │
-          │ - mappingUser()                                      │
-          │ - updateDatabase()                                   │
-          │ - showMenu()                                         │
-          │ - showUserMenu()                                     │
-          │ - register()                                         │
-          │ - displayAllUsers()                                  │
-          │ - searchByName()                                     │
-          │ - viewUser()                                         │
-          │ - login()                                            │
-          │ - handleSelection()                                  │
-          └──────────────────────────────────────────────────────┘
-               │              │
-          uses │         uses │
-               ▼              ▼
-    ┌──────────────┐   ┌──────────────────────┐
-    │    FileDB    │   │       User           │
-    ├──────────────┤   ├──────────────────────┤
-    │ - path       │   │ - firstname          │
-    ├──────────────┤   │ - username           │
-    │ + save()     │   │ ....                 │
-    │ + load()     │   ├──────────────────────┤
-    └──────────────┘   │ + mappingToRawData() │
-                       │ + checkCredential()  │
-                       │ + hasName()          │
-                       │ + toString()         │
-                       └──────────────────────┘
+┌─────────────────────────────────────────────────────────────────┐
+│                             Main                                │
+└────┬──────────────────┬──────────────────┬───────────────────── ┘
+     │ creates          │ creates          │ creates
+     ▼                  ▼                  ▼
+┌──────────────┐  ┌───────────────┐  ┌────────────────────┐
+│ ScannerUtils │  │ UserRepository│  │    UserHandler     │
+├──────────────┤  ├───────────────┤  ├────────────────────┤
+│              │  │ - _path       │  │ - _repository:     │
+│+inputNumber()│  ├───────────────┤  │   IRepository<User>│
+│+inputString()│  │ + save()      │  ├────────────────────┤
+│+inputDate()  │  │ + load()      │  │ + register()       │
+│+close()      │  └───────┬───────┘  │ + getAllUsers()     │
+└──────┬───────┘          │implements│ + getByName()       │
+       │inject            ▼          │ + login()           │
+       │          ┌───────────────┐  └────────┬───────────┘
+       │          │  «interface»  │           │inject
+       │          │ IRepository<T>│           │
+       │          ├───────────────┤           │
+       │          │+ save()       │           │
+       │          │+ load()       │           │
+       │          └───────────────┘           │
+       │                                      │
+       └──────────────────┬───────────────────┘
+                          │ inject
+                          ▼
+          ┌──────────────────────────────────────┐
+          │         UserManagementSystem         │
+          ├──────────────────────────────────────┤
+          │ - _scanner   : ScannerUtils          │
+          │ - _handler   : UserHandler           │
+          ├──────────────────────────────────────┤
+          │ + run()                              │
+          │ - _showMenu()                        │
+          │ - _showUserMenu()                    │
+          │ - _handleSelection()                 │
+          │ - _handleRegister()                  │
+          │ - _handleViewUser()                  │
+          │ - _displayAllUsers()                 │
+          │ - _searchByName()                    │
+          │ - _login()                           │
+          └──────────────────────────────────────┘
+
+          ┌──────────────────────────────┐
+          │            User              │
+          ├──────────────────────────────┤
+          │ - _firstname                 │
+          │ - _lastname                  │
+          │ - _dob                       │
+          │ - _username                  │
+          │ - _password                  │
+          │ - _failedTime                │
+          ├──────────────────────────────┤
+          │ + mappingToRawData()         │
+          │ + checkCredential()          │
+          │ + isLooked()                 │
+          │ + hasName()                  │
+          │ + toString()                 │
+          └──────────────────────────────┘
 ```
