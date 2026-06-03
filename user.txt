@@ -1,3 +1,1 @@
 hoang,tran,1999-01-01,hoang,123,0
-Dung,Nguyen,1999-01-01,dung,123,0
-suong,dieu,2005-05-05,suong,123,0
