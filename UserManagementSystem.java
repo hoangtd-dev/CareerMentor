@@ -98,7 +98,7 @@ public class UserManagementSystem {
         String searchText = scanner.inputString();
 
         for (User user : _users) {
-            boolean result = user.searchByName(searchText);
+            boolean result = user.hasName(searchText);
 
             if (result) {
                 System.out.println(user.toString());

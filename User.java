@@ -45,9 +45,9 @@ public class User {
         return 1;
     }
 
-    public boolean searchByName(String searchText) {
-        String search = searchText.toLowerCase();
-        return _firstname.toLowerCase().contains(search) || _lastname.toLowerCase().contains(search);
+    public boolean hasName(String searchText) {
+        String lowerText = searchText.toLowerCase();
+        return _firstname.toLowerCase().contains(lowerText) || _lastname.toLowerCase().contains(lowerText);
     }
 
     @Override

@@ -42,7 +42,7 @@
     │ + load()     │   ├──────────────────────┤
     └──────────────┘   │ + mappingToRawData() │
                        │ + checkCredential()  │
-                       │ + searchByName()     │
+                       │ + hasName()          │
                        │ + toString()         │
                        └──────────────────────┘
 ```
