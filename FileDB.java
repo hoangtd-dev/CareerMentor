@@ -12,18 +12,14 @@ public class FileDB {
     }
 
     public void save(String data) {
-        if (!_path.endsWith(".txt")) return;
-
         try (FileWriter myWriter = new FileWriter(_path)) {
             myWriter.write(data);
         } catch (IOException e) {
-            System.out.println("An error occurred.");
+            System.out.println("Could not save data !!!");
         }
     }
 
     public ArrayList<String> load() {
-        if (!_path.endsWith(".txt")) return null;
-
         File db = new File(_path);
         if (!db.exists()) {
             try {

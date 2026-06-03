@@ -1,3 +1,5 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class UserManagementSystem {
@@ -27,7 +29,13 @@ public class UserManagementSystem {
     private void _mappingUser(ArrayList<String> rawData) {
         for (String data : rawData) {
             String[] splitData = data.split(",");
-            _users.add(new User(splitData[0], splitData[1], splitData[2], splitData[3], splitData[4], Integer.parseInt(splitData[5])));
+            _users.add(new User(
+                splitData[0], 
+                splitData[1], 
+                LocalDate.parse(splitData[2], DateTimeFormatter.ofPattern("yyyy-M-d")), 
+                splitData[3], 
+                splitData[4], 
+                Integer.parseInt(splitData[5])));
         }
     }
 
@@ -60,8 +68,13 @@ public class UserManagementSystem {
         String firstname = scanner.inputString();
         System.out.print("last name: ");
         String lastname = scanner.inputString();
-        System.out.print("dob (YYYY-MM-dd): ");
-        String dob = scanner.inputString();
+        LocalDate dob = null;
+        
+        while (dob == null) {
+            System.out.print("dob (YYYY-MM-dd): ");
+            dob = scanner.inputDate();
+        }
+
         System.out.print("username: ");
         String username = scanner.inputString();
         System.out.print("password: ");

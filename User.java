@@ -1,6 +1,4 @@
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-
 public class User {
     private String _firstname;
     private String _lastname;
@@ -9,18 +7,18 @@ public class User {
     private String _password;
     private int _failedTime = 0;
 
-    public User(String firstname, String lastname, String dob, String username, String password) {
+    public User(String firstname, String lastname, LocalDate dob, String username, String password) {
         _firstname = firstname;
         _lastname = lastname;
-        _dob = LocalDate.parse(dob, DateTimeFormatter.ofPattern("yyyy-M-d"));
+        _dob = dob;
         _username = username;
         _password = password;
     }
 
-    public User(String firstname, String lastname, String dob, String username, String password, int failedTime) {
+    public User(String firstname, String lastname, LocalDate dob, String username, String password, int failedTime) {
         _firstname = firstname;
         _lastname = lastname;
-        _dob = LocalDate.parse(dob, DateTimeFormatter.ofPattern("yyyy-M-d"));
+        _dob = dob;
         _username = username;
         _password = password;
         _failedTime = failedTime;
