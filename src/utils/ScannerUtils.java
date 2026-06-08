@@ -6,13 +6,15 @@ import java.util.Scanner;
 import constants.Constants;
 
 public class ScannerUtils {
-    private final static Scanner scanner = new Scanner(System.in);
+    public final static Scanner scanner = new Scanner(System.in);
 
     public static int inputNumber(String placeholder) {
         while (true) {
             try {
                 System.out.print(placeholder);
-                return scanner.nextInt();
+                int result = scanner.nextInt();
+                scanner.nextLine();
+                return result;
             } catch (Exception e) {
                 scanner.nextLine();
                 System.out.println("Input should be number !!!!");
@@ -23,7 +25,7 @@ public class ScannerUtils {
     public static String inputString(String placeholder) {
         try {
             System.out.print(placeholder);
-            return scanner.next();
+            return scanner.nextLine();
         } catch (Exception e) {
             scanner.nextLine();
             System.out.println("Input should be String !!!!");
@@ -35,7 +37,7 @@ public class ScannerUtils {
         while (true) {
             try {
                 System.out.print(placeholder);
-                String dob = scanner.next();
+                String dob = scanner.nextLine();
                 return LocalDate.parse(dob, Constants.formatter);
             } catch (Exception e) {
                 scanner.nextLine();

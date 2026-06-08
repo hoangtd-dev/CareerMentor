@@ -38,10 +38,10 @@ public class User {
     }
 
     public boolean checkCredential(String username, String password) {
-        if (!username.equals(username))
+        if (!this.username.equals(username))
             return false;
 
-        if (!password.equals(password)) {
+        if (!this.password.equals(password)) {
             failedTime++;
             return false;
         }

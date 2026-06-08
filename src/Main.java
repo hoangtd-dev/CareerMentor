@@ -1,15 +1,17 @@
-import handlers.UserHandler;
 import interfaces.IRepository;
 import models.User;
 import repositories.UserRepository;
+import services.AuthService;
+import services.UserService;
 import utils.ScannerUtils;
 
 class Main {
   public static void main(String[] args) {
     IRepository<User> userRepository = new UserRepository("user.txt");
-    UserHandler handler = new UserHandler(userRepository);
+    UserService userService = new UserService(userRepository);
+    AuthService authService = new AuthService(userRepository);
 
-    new UserManagementSystem(handler).run();
+    new UserManagementSystem(userService, authService).run();
 
     ScannerUtils.close();
   }
