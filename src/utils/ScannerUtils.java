@@ -16,7 +16,6 @@ public class ScannerUtils {
                 scanner.nextLine();
                 return result;
             } catch (Exception e) {
-                scanner.nextLine();
                 System.out.println("Input should be number !!!!");
             }
         }
@@ -27,7 +26,6 @@ public class ScannerUtils {
             System.out.print(placeholder);
             return scanner.nextLine();
         } catch (Exception e) {
-            scanner.nextLine();
             System.out.println("Input should be String !!!!");
             return null;
         }
@@ -40,7 +38,6 @@ public class ScannerUtils {
                 String dob = scanner.nextLine();
                 return LocalDate.parse(dob, Constants.formatter);
             } catch (Exception e) {
-                scanner.nextLine();
                 System.out.println("Please follow the date format: YYYY-MM-dd !!!");
             }
         }

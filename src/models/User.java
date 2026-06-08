@@ -1,10 +1,15 @@
 package models;
 
 import java.time.LocalDate;
-import lombok.Data;
+import java.util.UUID;
 
-@Data
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 public class User {
+    private String id;
     private String firstname;
     private String lastname;
     private LocalDate dob;
@@ -13,6 +18,7 @@ public class User {
     private int failedTime = 0;
 
     public User(String firstname, String lastname, LocalDate dob, String username, String password) {
+        this.id = UUID.randomUUID().toString();
         this.firstname = firstname;
         this.lastname = lastname;
         this.dob = dob;
@@ -20,7 +26,9 @@ public class User {
         this.password = password;
     }
 
-    public User(String firstname, String lastname, LocalDate dob, String username, String password, int failedTime) {
+    public User(String id, String firstname, String lastname, LocalDate dob, String username, String password,
+            int failedTime) {
+        this.id = id;
         this.firstname = firstname;
         this.lastname = lastname;
         this.dob = dob;
@@ -30,7 +38,7 @@ public class User {
     }
 
     public String mappingToRawData() {
-        return String.format("%s,%s,%s,%s,%s,%d", firstname, lastname, dob, username, password, failedTime);
+        return String.format("%s,%s,%s,%s,%s,%s,%d", id, firstname, lastname, dob, username, password, failedTime);
     }
 
     public boolean isLooked() {
@@ -57,6 +65,7 @@ public class User {
 
     @Override
     public String toString() {
-        return String.format("First name: %s - Last name: %s - Dob: %s - Username: %s", firstname, lastname, dob, username);
+        return String.format("First name: %s - Last name: %s - Dob: %s - Username: %s", firstname, lastname, dob,
+                username);
     }
 }
