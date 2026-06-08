@@ -7,26 +7,26 @@ import interfaces.IRepository;
 import models.User;
 
 public class UserHandler {
-	private final IRepository<User> _repository;
+	private final IRepository<User> repository;
 
 	public UserHandler(IRepository<User> repository) {
-		_repository = repository;
+		this.repository = repository;
 	}
 
 	public void register(String firstname, String lastname, LocalDate dob, String username, String password) {
-		ArrayList<User> users = _repository.load();
+		ArrayList<User> users = repository.load();
 
 		users.add(new User(firstname, lastname, dob, username, password));
 
-		_repository.save(users);
+		repository.save(users);
 	}
 
 	public ArrayList<User> getAllUsers() {
-		return _repository.load();
+		return repository.load();
 	}
 
 	public ArrayList<User> getByName(String searchText) {
-		ArrayList<User> users = _repository.load();
+		ArrayList<User> users = repository.load();
 		ArrayList<User> result = new ArrayList<User>();
 
 		for (User user : users) {
@@ -39,11 +39,11 @@ public class UserHandler {
 	}
 
 	public int login(String username, String password) {
-		ArrayList<User> users = _repository.load();
+		ArrayList<User> users = repository.load();
 
 		for (User user : users) {
 			boolean found = user.checkCredential(username, password);
-			_repository.save(users);
+			repository.save(users);
 
 			if (user.isLooked()) {
 				return -1;

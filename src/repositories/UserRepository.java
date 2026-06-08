@@ -13,16 +13,16 @@ import interfaces.IRepository;
 import models.User;
 
 public class UserRepository implements IRepository<User> {
-	private final String _path;
+	private final String path;
 
 	public UserRepository(String path) {
-		_path = path;
+		this.path = path;
 	}
 
 	@Override
 	public void save(ArrayList<User> data) {
-		try (FileWriter writer = new FileWriter(_path)) {
-			writer.write(_mappingObjectToString(data));
+		try (FileWriter writer = new FileWriter(path)) {
+			writer.write(mappingObjectToString(data));
 		} catch (IOException e) {
 			System.out.println("Could not save data !!!");
 		}
@@ -30,12 +30,12 @@ public class UserRepository implements IRepository<User> {
 
 	@Override
 	public ArrayList<User> load() {
-		File db = new File(_path);
+		File db = new File(path);
 		if (!db.exists()) {
 			try {
 				db.createNewFile();
 			} catch (IOException e) {
-				System.out.println("Could not create file: " + _path);
+				System.out.println("Could not create file: " + path);
 				return null;
 			}
 		}
@@ -45,7 +45,7 @@ public class UserRepository implements IRepository<User> {
 		try (Scanner reader = new Scanner(db)) {
 			while (reader.hasNextLine()) {
 				String item = reader.nextLine();
-				data.add(_mappingStringToObject(item));
+				data.add(mappingStringToObject(item));
 			}
 			return data;
 		} catch (FileNotFoundException e) {
@@ -54,7 +54,7 @@ public class UserRepository implements IRepository<User> {
 		}
 	}
 
-	private User _mappingStringToObject(String data) {
+	private User mappingStringToObject(String data) {
 		String[] splitData = data.split(",");
 		return new User(
 				splitData[0],
@@ -65,7 +65,7 @@ public class UserRepository implements IRepository<User> {
 				Integer.parseInt(splitData[5]));
 	}
 
-	private String _mappingObjectToString(ArrayList<User> users) {
+	private String mappingObjectToString(ArrayList<User> users) {
 		String result = "";
 
 		for (User user : users) {

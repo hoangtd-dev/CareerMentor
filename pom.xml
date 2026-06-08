@@ -1,0 +1,25 @@
+<project>
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>career-mentor</groupId>
+	<artifactId>oop</artifactId>
+	<version>1.0.0</version>
+	<packaging>jar</packaging>
+
+	<properties>
+		<maven.compiler.release>21</maven.compiler.release>
+	</properties>
+
+	<build>
+		<sourceDirectory>src</sourceDirectory>
+	</build>
+
+	<dependencies>
+			<dependency>
+					<groupId>org.projectlombok</groupId>
+					<artifactId>lombok</artifactId>
+					<version>1.18.46</version>
+					<scope>provided</scope>
+			</dependency>
+	</dependencies>
+</project>
