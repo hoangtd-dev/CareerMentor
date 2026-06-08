@@ -5,10 +5,10 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import constants.Constants;
 import interfaces.IRepository;
 import models.User;
 
@@ -59,7 +59,7 @@ public class UserRepository implements IRepository<User> {
 		return new User(
 				splitData[0],
 				splitData[1],
-				LocalDate.parse(splitData[2], DateTimeFormatter.ofPattern("yyyy-M-d")),
+				LocalDate.parse(splitData[2], Constants.formatter),
 				splitData[3],
 				splitData[4],
 				Integer.parseInt(splitData[5]));

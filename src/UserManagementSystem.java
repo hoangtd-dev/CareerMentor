@@ -6,19 +6,17 @@ import models.User;
 import utils.ScannerUtils;
 
 public class UserManagementSystem {
-    private final ScannerUtils scanner;
     private final UserHandler handler;
     private boolean isRunning = true;
 
-    public UserManagementSystem(ScannerUtils scanner, UserHandler handler) {
-        this.scanner = scanner;
+    public UserManagementSystem(UserHandler handler) {
         this.handler = handler;
     }
 
     public void run() {
         while (isRunning) {
             showMenu();
-            int selection = scanner.inputNumber("Your choice: ");
+            int selection = ScannerUtils.inputNumber("Your choice: ");
             handleSelection(selection);
         }
     }
@@ -48,11 +46,11 @@ public class UserManagementSystem {
     }
 
     private void handleRegister() {
-        String firstname = scanner.inputString("fist name: ");
-        String lastname = scanner.inputString("last name: ");
-        LocalDate dob = scanner.inputDate("dob (YYYY-MM-dd): ");
-        String username = scanner.inputString("username: ");
-        String password = scanner.inputString("password: ");
+        String firstname = ScannerUtils.inputString("first name: ");
+        String lastname = ScannerUtils.inputString("last name: ");
+        LocalDate dob = ScannerUtils.inputDate("dob (YYYY-MM-dd): ");
+        String username = ScannerUtils.inputString("username: ");
+        String password = ScannerUtils.inputString("password: ");
 
         handler.register(firstname, lastname, dob, username, password);
 
@@ -67,7 +65,7 @@ public class UserManagementSystem {
     }
 
     private void searchByName() {
-        String searchText = scanner.inputString("Find user by first name or last name: ");
+        String searchText = ScannerUtils.inputString("Find user by first name or last name: ");
         ArrayList<User> users = handler.getByName(searchText);
 
         if (users.size() > 0) {
@@ -81,7 +79,7 @@ public class UserManagementSystem {
 
     private void handleViewUser() {
         showUserMenu();
-        int subOption = scanner.inputNumber("Your choice: ");
+        int subOption = ScannerUtils.inputNumber("Your choice: ");
 
         switch (subOption) {
             case 1 -> displayAllUsers();
@@ -91,8 +89,8 @@ public class UserManagementSystem {
     }
 
     private void login() {
-        String username = scanner.inputString("username: ");
-        String password = scanner.inputString("password: ");
+        String username = ScannerUtils.inputString("username: ");
+        String password = ScannerUtils.inputString("password: ");
         int result = handler.login(username, password);
 
         switch (result) {
