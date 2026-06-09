@@ -7,6 +7,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.nio.file.Path;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 
 @DisplayName("UserRepository")
 public class UserRepositoryTest {
@@ -24,7 +25,7 @@ public class UserRepositoryTest {
     @Test
     @DisplayName("load should return empty list when file is empty")
     void load_returnEmptyList_whenFileIsEmpty() {
-        ArrayList<User> result = repository.load();
+        List<User> result = repository.load();
         assertNotNull(result);
         assertTrue(result.isEmpty());
     }
@@ -32,11 +33,11 @@ public class UserRepositoryTest {
     @Test
     @DisplayName("save and load should return original data after saving")
     void saveAndLoad_returnOriginalData_whenDataIsSaved() {
-        ArrayList<User> users = new ArrayList<>();
+        List<User> users = new ArrayList<>();
         users.add(new User("John", "Doe", LocalDate.of(1990, 1, 1), "john", "pass"));
 
         repository.save(users);
-        ArrayList<User> loaded = repository.load();
+        List<User> loaded = repository.load();
 
         assertEquals(1, loaded.size());
         assertEquals("john", loaded.get(0).getUsername());

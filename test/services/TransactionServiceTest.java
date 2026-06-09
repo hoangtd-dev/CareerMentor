@@ -19,7 +19,7 @@ public class TransactionServiceTest {
     void init() {
         fakeRepo = new FakeTransactionRepository();
 
-        ArrayList<Transaction> seed = new ArrayList<>();
+        List<Transaction> seed = new ArrayList<>();
         seed.add(new Transaction(TransactionTypeEnum.Deposit, new BigDecimal("100"), "card-001"));
         seed.add(new Transaction(TransactionTypeEnum.Withdraw, new BigDecimal("50"), "card-001"));
         seed.add(new Transaction(TransactionTypeEnum.Deposit, new BigDecimal("200"), "card-001"));
@@ -66,8 +66,8 @@ public class TransactionServiceTest {
     }
 
     private static class FakeTransactionRepository implements IRepository<Transaction> {
-        ArrayList<Transaction> data = new ArrayList<>();
-        @Override public void save(ArrayList<Transaction> d) { this.data = new ArrayList<>(d); }
-        @Override public ArrayList<Transaction> load() { return new ArrayList<>(data); }
+        List<Transaction> data = new ArrayList<>();
+        @Override public void save(List<Transaction> d) { this.data = new ArrayList<>(d); }
+        @Override public List<Transaction> load() { return new ArrayList<>(data); }
     }
 }

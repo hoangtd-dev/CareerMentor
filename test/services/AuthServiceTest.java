@@ -7,6 +7,7 @@ import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 
 @DisplayName("AuthService")
 public class AuthServiceTest {
@@ -80,15 +81,15 @@ public class AuthServiceTest {
     }
 
     private static class FakeUserRepository implements IRepository<User> {
-        private ArrayList<User> data = new ArrayList<>();
+        private List<User> data = new ArrayList<>();
 
         @Override
-        public void save(ArrayList<User> users) {
+        public void save(List<User> users) {
             this.data = new ArrayList<>(users);
         }
 
         @Override
-        public ArrayList<User> load() {
+        public List<User> load() {
             return new ArrayList<>(data);
         }
     }

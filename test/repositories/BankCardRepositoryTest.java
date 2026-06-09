@@ -9,6 +9,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.math.BigDecimal;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.List;
 
 @DisplayName("BankCardRepository")
 public class BankCardRepositoryTest {
@@ -26,7 +27,7 @@ public class BankCardRepositoryTest {
     @Test
     @DisplayName("load should return empty list when file is empty")
     void load_returnEmptyList_whenFileIsEmpty() {
-        ArrayList<BankCard> result = repository.load();
+        List<BankCard> result = repository.load();
         assertNotNull(result);
         assertTrue(result.isEmpty());
     }
@@ -34,11 +35,11 @@ public class BankCardRepositoryTest {
     @Test
     @DisplayName("save and load should return original data after saving")
     void saveAndLoad_returnOriginalData_whenDataIsSaved() {
-        ArrayList<BankCard> cards = new ArrayList<>();
+        List<BankCard> cards = new ArrayList<>();
         cards.add(new ANZBankCard("1234567890", new BigDecimal("500.00"), "user-1", "John Doe"));
 
         repository.save(cards);
-        ArrayList<BankCard> loaded = repository.load();
+        List<BankCard> loaded = repository.load();
 
         assertEquals(1, loaded.size());
         assertEquals(BankEnum.ANZ, loaded.get(0).getBankName());

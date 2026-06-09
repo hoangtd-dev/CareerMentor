@@ -1,7 +1,6 @@
 package services;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
 
 import enums.BankEnum;
@@ -26,7 +25,7 @@ public class BankCardService {
 	}
 
 	public BankCard getCurrentCard() {
-		ArrayList<BankCard> cards = this.cardRepository.load();
+		List<BankCard> cards = this.cardRepository.load();
 		return getCurrentCard(cards);
 	}
 
@@ -34,7 +33,7 @@ public class BankCardService {
 		if (!cardNumber.matches("\\d{10}")) 
 			throw new IllegalArgumentException("Card number must have 10 digit");
 
-		ArrayList<BankCard> cards = cardRepository.load();
+		List<BankCard> cards = cardRepository.load();
 
 		boolean isExisted = isCardNumberExisted(cards, cardNumber);
 
@@ -58,7 +57,7 @@ public class BankCardService {
 	}
 
 	public void deposit(BigDecimal amount) {
-		ArrayList<BankCard> cards = cardRepository.load();
+		List<BankCard> cards = cardRepository.load();
 		BankCard currentCard = getCurrentCard(cards);
 
 		boolean result = currentCard.deposit(amount);
@@ -78,7 +77,7 @@ public class BankCardService {
 	}
 
 	public void withdraw(BigDecimal amount) {
-		ArrayList<BankCard> cards = cardRepository.load();
+		List<BankCard> cards = cardRepository.load();
 		BankCard currentCard = getCurrentCard(cards);
 
 		boolean result = currentCard.withdraw(amount);
@@ -101,20 +100,20 @@ public class BankCardService {
 	}
 
 	public String getBalanceMessage() {
-		ArrayList<BankCard> cards = cardRepository.load();
+		List<BankCard> cards = cardRepository.load();
 		BankCard currentCard = getCurrentCard(cards);
 
 		return currentCard.getBalanceMessage();
 	}
 
 	public boolean hasCard() {
-		ArrayList<BankCard> cards = cardRepository.load();
+		List<BankCard> cards = cardRepository.load();
 		BankCard currentCard = getCurrentCard(cards);
 
 		return currentCard != null;
 	}
 
-	private BankCard getCurrentCard(ArrayList<BankCard> cards) {
+	private BankCard getCurrentCard(List<BankCard> cards) {
 		String userId = authService.getUser().getId();
 
 		try {

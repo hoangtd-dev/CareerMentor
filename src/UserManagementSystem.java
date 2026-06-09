@@ -1,6 +1,5 @@
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 import enums.BankEnum;
@@ -223,7 +222,7 @@ public class UserManagementSystem {
     }
 
     private void displayAllUsers() {
-        ArrayList<User> users = userService.getAllUsers();
+        List<User> users = userService.getAllUsers();
         users.forEach(user -> System.out.println(user.toString()));
     }
 

@@ -1,9 +1,9 @@
 package interfaces;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public interface IRepository<T> {
-	void save(ArrayList<T> data);
+	void save(List<T> data);
 
-	ArrayList<T> load();
+	List<T> load();
 }

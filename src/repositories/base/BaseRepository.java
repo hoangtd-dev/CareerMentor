@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 import interfaces.IBaseEntity;
@@ -19,7 +20,7 @@ public abstract class BaseRepository<T extends IBaseEntity> implements IReposito
 
 	protected abstract T mappingStringToObject(String data);
 
-	private String mappingObjectToString(ArrayList<T> items) {
+	private String mappingObjectToString(List<T> items) {
 		return items
 				.stream()
 				.map(item -> item.mappingToRawData())
@@ -27,7 +28,7 @@ public abstract class BaseRepository<T extends IBaseEntity> implements IReposito
 	}
 
 	@Override
-	public void save(ArrayList<T> data) {
+	public void save(List<T> data) {
 		try (FileWriter writer = new FileWriter(path)) {
 			writer.write(mappingObjectToString(data));
 		} catch (IOException e) {
@@ -36,7 +37,7 @@ public abstract class BaseRepository<T extends IBaseEntity> implements IReposito
 	}
 
 	@Override
-	public ArrayList<T> load() {
+	public List<T> load() {
 		File db = new File(path);
 		if (!db.exists()) {
 			try {
@@ -47,7 +48,7 @@ public abstract class BaseRepository<T extends IBaseEntity> implements IReposito
 			}
 		}
 
-		ArrayList<T> data = new ArrayList<>();
+		List<T> data = new ArrayList<>();
 
 		try (Scanner reader = new Scanner(db)) {
 			while (reader.hasNextLine()) {

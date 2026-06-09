@@ -1,7 +1,6 @@
 package services;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -30,7 +29,7 @@ public class AuthService {
 	}
 
 	public boolean register(String firstname, String lastname, LocalDate dob, String username, String password) {
-		ArrayList<User> users = repository.load();
+		List<User> users = repository.load();
 
 		boolean isExisted = isUsernameExisted(users, username);
 
@@ -44,7 +43,7 @@ public class AuthService {
 	}
 
 	public LoginStatusEnum login(String username, String password) {
-		ArrayList<User> users = repository.load();
+		List<User> users = repository.load();
 
 		try {
 			User matchedUser = users.stream()

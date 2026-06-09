@@ -8,6 +8,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.math.BigDecimal;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.List;
 
 @DisplayName("TransactionRepository")
 public class TransactionRepositoryTest {
@@ -25,7 +26,7 @@ public class TransactionRepositoryTest {
     @Test
     @DisplayName("load should return empty list when file is empty")
     void load_returnEmptyList_whenFileIsEmpty() {
-        ArrayList<Transaction> result = repository.load();
+        List<Transaction> result = repository.load();
         assertNotNull(result);
         assertTrue(result.isEmpty());
     }
@@ -33,11 +34,11 @@ public class TransactionRepositoryTest {
     @Test
     @DisplayName("save and load should return original data after saving")
     void saveAndLoad_returnOriginalData_whenDataIsSaved() {
-        ArrayList<Transaction> transactions = new ArrayList<>();
+        List<Transaction> transactions = new ArrayList<>();
         transactions.add(new Transaction(TransactionTypeEnum.Deposit, new BigDecimal("100.00"), "1234567890"));
 
         repository.save(transactions);
-        ArrayList<Transaction> loaded = repository.load();
+        List<Transaction> loaded = repository.load();
 
         assertEquals(1, loaded.size());
         assertEquals(TransactionTypeEnum.Deposit, loaded.get(0).getType());

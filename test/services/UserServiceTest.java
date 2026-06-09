@@ -26,7 +26,7 @@ public class UserServiceTest {
     @Test
     @DisplayName("getAllUsers should return all users in repository")
     void getAllUsers_returnAllUsers() {
-        ArrayList<User> result = userService.getAllUsers();
+        List<User> result = userService.getAllUsers();
         assertEquals(3, result.size());
     }
 
@@ -55,8 +55,8 @@ public class UserServiceTest {
     }
 
     private static class FakeUserRepository implements IRepository<User> {
-        ArrayList<User> data = new ArrayList<>();
-        @Override public void save(ArrayList<User> d) { this.data = new ArrayList<>(d); }
-        @Override public ArrayList<User> load() { return new ArrayList<>(data); }
+        List<User> data = new ArrayList<>();
+        @Override public void save(List<User> d) { this.data = new ArrayList<>(d); }
+        @Override public List<User> load() { return new ArrayList<>(data); }
     }
 }

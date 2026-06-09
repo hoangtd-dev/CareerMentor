@@ -1,7 +1,6 @@
 package services;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
 
 import enums.TransactionTypeEnum;
@@ -15,7 +14,7 @@ public class TransactionService {
 		this.transactionRepository = transactionRepository;
 	}
 
-	public List<Transaction> getTransactionsByCardNumber(ArrayList<Transaction> transactions, String cardNumber) {
+	public List<Transaction> getTransactionsByCardNumber(List<Transaction> transactions, String cardNumber) {
 		try {
 			return transactions.stream()
 					.filter(transaction -> transaction.getCardNumber().equals(cardNumber))
@@ -26,7 +25,7 @@ public class TransactionService {
 	}
 
 	public void createTransaction(TransactionTypeEnum type, BigDecimal amount, String cardNumber) {
-		ArrayList<Transaction> transactions = transactionRepository.load();
+		List<Transaction> transactions = transactionRepository.load();
 
 		transactions.add(new Transaction(type, amount, cardNumber));
 
@@ -34,7 +33,7 @@ public class TransactionService {
 	}
 
 	public List<Transaction> getTransactionHistory(String cardNumber, int take) {
-		ArrayList<Transaction> transactions = transactionRepository.load();
+		List<Transaction> transactions = transactionRepository.load();
 
 		List<Transaction> result = getTransactionsByCardNumber(transactions, cardNumber);
 

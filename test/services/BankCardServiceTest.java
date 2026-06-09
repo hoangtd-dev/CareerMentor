@@ -11,6 +11,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 
 @DisplayName("BankCardService")
 public class BankCardServiceTest {
@@ -104,20 +105,20 @@ public class BankCardServiceTest {
     }
 
     private static class FakeUserRepository implements IRepository<User> {
-        private ArrayList<User> data = new ArrayList<>();
-        @Override public void save(ArrayList<User> d) { this.data = new ArrayList<>(d); }
-        @Override public ArrayList<User> load() { return new ArrayList<>(data); }
+        private List<User> data = new ArrayList<>();
+        @Override public void save(List<User> d) { this.data = new ArrayList<>(d); }
+        @Override public List<User> load() { return new ArrayList<>(data); }
     }
 
     private static class FakeBankCardRepository implements IRepository<BankCard> {
-        private ArrayList<BankCard> data = new ArrayList<>();
-        @Override public void save(ArrayList<BankCard> d) { this.data = new ArrayList<>(d); }
-        @Override public ArrayList<BankCard> load() { return new ArrayList<>(data); }
+        private List<BankCard> data = new ArrayList<>();
+        @Override public void save(List<BankCard> d) { this.data = new ArrayList<>(d); }
+        @Override public List<BankCard> load() { return new ArrayList<>(data); }
     }
 
     private static class FakeTransactionRepository implements IRepository<Transaction> {
-        ArrayList<Transaction> data = new ArrayList<>();
-        @Override public void save(ArrayList<Transaction> d) { this.data = new ArrayList<>(d); }
-        @Override public ArrayList<Transaction> load() { return new ArrayList<>(data); }
+        List<Transaction> data = new ArrayList<>();
+        @Override public void save(List<Transaction> d) { this.data = new ArrayList<>(d); }
+        @Override public List<Transaction> load() { return new ArrayList<>(data); }
     }
 }
