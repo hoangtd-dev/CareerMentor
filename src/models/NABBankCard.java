@@ -19,16 +19,6 @@ public class NABBankCard extends BankCard {
 	}
 
 	@Override
-	protected BigDecimal getMinimumDeposit() {
-		return minimumDeposit;
-	}
-
-	@Override
-	protected BigDecimal getWithdrawLimit() {
-		return withdrawLimit;
-	}
-
-	@Override
 	public String getBalanceMessage() {
 		return String.format("Hi %s, your card balance on NAB bank is %s", getFullname(), getBalance().toPlainString());
 	}

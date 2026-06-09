@@ -19,16 +19,6 @@ public class CMWBankCard extends BankCard {
 	}
 
 	@Override
-	protected BigDecimal getMinimumDeposit() {
-		return minimumDeposit;
-	}
-
-	@Override
-	protected BigDecimal getWithdrawLimit() {
-		return withdrawLimit;
-	}
-
-	@Override
 	public String getBalanceMessage() {
 		return String.format("CMW bank account with number %s has balance is %s", getMaskCardNumber(),
 				getBalance().toPlainString());

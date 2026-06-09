@@ -19,16 +19,6 @@ public class ANZBankCard extends BankCard {
 	}
 
 	@Override
-	protected BigDecimal getMinimumDeposit() {
-		return minimumDeposit;
-	}
-
-	@Override
-	protected BigDecimal getWithdrawLimit() {
-		return withdrawLimit;
-	}
-
-	@Override
 	public String getBalanceMessage() {
 		return String.format("Your ANZ account %s balance is %s", getMaskCardNumber(), getBalance().toPlainString());
 	}
