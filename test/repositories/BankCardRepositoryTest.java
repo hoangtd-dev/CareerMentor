@@ -2,9 +2,9 @@ package repositories;
 
 import models.base.BankCard;
 import models.ANZBankCard;
-import constants.BankEnum;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.io.TempDir;
+import enums.BankEnum;
 import static org.junit.jupiter.api.Assertions.*;
 import java.math.BigDecimal;
 import java.nio.file.Path;

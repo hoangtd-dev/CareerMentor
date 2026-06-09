@@ -3,8 +3,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import constants.BankEnum;
-import enums.LoginStatus;
+import enums.BankEnum;
+import enums.LoginStatusEnum;
 import models.Transaction;
 import models.User;
 import models.base.BankCard;
@@ -252,11 +252,11 @@ public class UserManagementSystem {
     private void login() {
         String username = ScannerUtils.inputString("username: ");
         String password = ScannerUtils.inputString("password: ");
-        LoginStatus result = authService.login(username, password);
+        LoginStatusEnum result = authService.login(username, password);
 
         switch (result) {
-            case LoginStatus.Success -> System.out.println("Login successful");
-            case LoginStatus.Locked -> System.out.println("User is locked !!!");
+            case LoginStatusEnum.Success -> System.out.println("Login successful");
+            case LoginStatusEnum.Locked -> System.out.println("User is locked !!!");
             default -> System.out.println("Username or password is wrong");
         }
     }

@@ -4,8 +4,8 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
-import constants.BankEnum;
-import constants.TransactionTypeEnum;
+import enums.BankEnum;
+import enums.TransactionTypeEnum;
 import interfaces.IRepository;
 import models.ANZBankCard;
 import models.CMWBankCard;

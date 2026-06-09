@@ -2,7 +2,7 @@ package repositories;
 
 import java.math.BigDecimal;
 
-import constants.BankEnum;
+import enums.BankEnum;
 import models.ANZBankCard;
 import models.CMWBankCard;
 import models.NABBankCard;

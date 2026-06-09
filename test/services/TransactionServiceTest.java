@@ -2,8 +2,8 @@ package services;
 
 import interfaces.IRepository;
 import models.Transaction;
-import constants.TransactionTypeEnum;
 import org.junit.jupiter.api.*;
+import enums.TransactionTypeEnum;
 import static org.junit.jupiter.api.Assertions.*;
 import java.math.BigDecimal;
 import java.util.ArrayList;

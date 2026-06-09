@@ -1,6 +1,6 @@
 package enums;
 
-public enum LoginStatus {
+public enum LoginStatusEnum {
 	Success,
 	Fail,
 	Locked

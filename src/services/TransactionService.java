@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
-import constants.TransactionTypeEnum;
+import enums.TransactionTypeEnum;
 import interfaces.IRepository;
 import models.Transaction;
 

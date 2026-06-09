@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 
-import enums.LoginStatus;
+import enums.LoginStatusEnum;
 import interfaces.IRepository;
 import models.User;
 
@@ -43,7 +43,7 @@ public class AuthService {
 		return true;
 	}
 
-	public LoginStatus login(String username, String password) {
+	public LoginStatusEnum login(String username, String password) {
 		ArrayList<User> users = repository.load();
 
 		try {
@@ -53,20 +53,20 @@ public class AuthService {
 					.getFirst();
 
 			if (matchedUser.isLooked()) {
-				return LoginStatus.Locked;
+				return LoginStatusEnum.Locked;
 			}
 
 			boolean result = matchedUser.checkCredential(username, password);
 			repository.save(users);
 
 			if (!result) {
-				return LoginStatus.Fail;
+				return LoginStatusEnum.Fail;
 			}
 
 			authUser = matchedUser;
-			return LoginStatus.Success;
+			return LoginStatusEnum.Success;
 		} catch (NoSuchElementException e) {
-			return LoginStatus.Fail;
+			return LoginStatusEnum.Fail;
 		}
 	}
 

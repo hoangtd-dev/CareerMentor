@@ -2,7 +2,7 @@ package models;
 
 import java.math.BigDecimal;
 
-import constants.BankEnum;
+import enums.BankEnum;
 import lombok.Getter;
 import lombok.Setter;
 

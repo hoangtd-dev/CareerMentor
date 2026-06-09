@@ -1,10 +1,11 @@
 package models.base;
 
 import java.math.BigDecimal;
+
+import enums.BankEnum;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
-import constants.BankEnum;
 import interfaces.IBaseEntity;
 
 @Getter

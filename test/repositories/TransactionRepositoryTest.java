@@ -1,9 +1,9 @@
 package repositories;
 
 import models.Transaction;
-import constants.TransactionTypeEnum;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.io.TempDir;
+import enums.TransactionTypeEnum;
 import static org.junit.jupiter.api.Assertions.*;
 import java.math.BigDecimal;
 import java.nio.file.Path;

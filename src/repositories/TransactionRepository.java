@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 import constants.Constants;
-import constants.TransactionTypeEnum;
+import enums.TransactionTypeEnum;
 import models.Transaction;
 import repositories.base.BaseRepository;
 

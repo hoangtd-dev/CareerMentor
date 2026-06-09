@@ -2,7 +2,7 @@ package services;
 
 import interfaces.IRepository;
 import models.User;
-import enums.LoginStatus;
+import enums.LoginStatusEnum;
 import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.*;
 import java.time.LocalDate;
@@ -37,8 +37,8 @@ public class AuthServiceTest {
     @DisplayName("login should return Success and set authUser when credentials are correct")
     void login_returnSuccess_whenCorrectCredentials() {
         authService.register("John", "Doe", LocalDate.of(1990, 1, 1), "john", "pass");
-        LoginStatus status = authService.login("john", "pass");
-        assertEquals(LoginStatus.Success, status);
+        LoginStatusEnum status = authService.login("john", "pass");
+        assertEquals(LoginStatusEnum.Success, status);
         assertNotNull(authService.getUser());
         assertTrue(authService.isAuth());
     }
@@ -47,8 +47,8 @@ public class AuthServiceTest {
     @DisplayName("login should return Fail when password is wrong")
     void login_returnFail_whenWrongPassword() {
         authService.register("John", "Doe", LocalDate.of(1990, 1, 1), "john", "pass");
-        LoginStatus status = authService.login("john", "wrong");
-        assertEquals(LoginStatus.Fail, status);
+        LoginStatusEnum status = authService.login("john", "wrong");
+        assertEquals(LoginStatusEnum.Fail, status);
     }
 
     @Test
@@ -58,15 +58,15 @@ public class AuthServiceTest {
         authService.login("john", "wrong");
         authService.login("john", "wrong");
         authService.login("john", "wrong");
-        LoginStatus status = authService.login("john", "pass");
-        assertEquals(LoginStatus.Locked, status);
+        LoginStatusEnum status = authService.login("john", "pass");
+        assertEquals(LoginStatusEnum.Locked, status);
     }
 
     @Test
     @DisplayName("login should return Fail when username is not found")
     void login_returnFail_whenUsernameNotFound() {
-        LoginStatus status = authService.login("nobody", "pass");
-        assertEquals(LoginStatus.Fail, status);
+        LoginStatusEnum status = authService.login("nobody", "pass");
+        assertEquals(LoginStatusEnum.Fail, status);
     }
 
     @Test

@@ -6,7 +6,7 @@ import java.time.LocalDateTime;
 import lombok.Getter;
 import lombok.Setter;
 import constants.Constants;
-import constants.TransactionTypeEnum;
+import enums.TransactionTypeEnum;
 import interfaces.IBaseEntity;
 
 @Getter
