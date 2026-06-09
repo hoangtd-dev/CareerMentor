@@ -30,7 +30,7 @@ public class ANZBankCard extends BankCard {
 
 	@Override
 	public String getBalanceMessage() {
-		return String.format("Your ANZ account %s balance is %s", getCardNumber(), getBalance().toPlainString());
+		return String.format("Your ANZ account %s balance is %s", getMaskCardNumber(), getBalance().toPlainString());
 	}
 
 	@Override

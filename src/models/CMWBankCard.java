@@ -30,7 +30,7 @@ public class CMWBankCard extends BankCard {
 
 	@Override
 	public String getBalanceMessage() {
-		return String.format("CMW bank account with number %s has balance is %s", getCardNumber(),
+		return String.format("CMW bank account with number %s has balance is %s", getMaskCardNumber(),
 				getBalance().toPlainString());
 	}
 

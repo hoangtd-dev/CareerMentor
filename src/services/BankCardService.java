@@ -31,6 +31,9 @@ public class BankCardService {
 	}
 
 	public boolean registerNewCard(BankEnum bankName, String cardNumber, BigDecimal balance) {
+		if (!cardNumber.matches("\\d{10}")) 
+			throw new IllegalArgumentException("Card number must have 10 digit");
+
 		ArrayList<BankCard> cards = cardRepository.load();
 
 		boolean isExisted = isCardNumberExisted(cards, cardNumber);
