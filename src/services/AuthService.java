@@ -2,6 +2,8 @@ package services;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.NoSuchElementException;
 
 import enums.LoginStatus;
 import interfaces.IRepository;
@@ -23,31 +25,52 @@ public class AuthService {
 		authUser = null;
 	}
 
-	public void register(String firstname, String lastname, LocalDate dob, String username, String password) {
+	public User getUser() {
+		return authUser;
+	}
+
+	public boolean register(String firstname, String lastname, LocalDate dob, String username, String password) {
 		ArrayList<User> users = repository.load();
+
+		boolean isExisted = isUsernameExisted(users, username);
+
+		if (isExisted)
+			return false;
 
 		users.add(new User(firstname, lastname, dob, username, password));
 
 		repository.save(users);
+		return true;
 	}
 
 	public LoginStatus login(String username, String password) {
 		ArrayList<User> users = repository.load();
 
-		for (User user : users) {
-			boolean found = user.checkCredential(username, password);
-			repository.save(users);
+		try {
+			User matchedUser = users.stream()
+					.filter(user -> user.getUsername().equals(username))
+					.toList()
+					.getFirst();
 
-			if (user.isLooked()) {
+			if (matchedUser.isLooked()) {
 				return LoginStatus.Locked;
 			}
 
-			if (found) {
-				authUser = user;
-				return LoginStatus.Success;
-			}
-		}
+			boolean result = matchedUser.checkCredential(username, password);
+			repository.save(users);
 
-		return LoginStatus.Fail;
+			if (!result) {
+				return LoginStatus.Fail;
+			}
+
+			authUser = matchedUser;
+			return LoginStatus.Success;
+		} catch (NoSuchElementException e) {
+			return LoginStatus.Fail;
+		}
+	}
+
+	private boolean isUsernameExisted(List<User> users, String username) {
+		return users.stream().anyMatch(user -> user.getUsername().equals(username));
 	}
 }

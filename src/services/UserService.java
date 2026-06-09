@@ -1,14 +1,16 @@
 package services;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import interfaces.IRepository;
 import models.User;
+import repositories.UserRepository;
 
 public class UserService {
 	private final IRepository<User> repository;
 
-	public UserService(IRepository<User> repository) {
+	public UserService(UserRepository repository) {
 		this.repository = repository;
 	}
 
@@ -16,16 +18,9 @@ public class UserService {
 		return repository.load();
 	}
 
-	public ArrayList<User> getByName(String searchText) {
+	public List<User> getByName(String searchText) {
 		ArrayList<User> users = repository.load();
-		ArrayList<User> result = new ArrayList<User>();
 
-		for (User user : users) {
-			if (user.hasName(searchText)) {
-				result.add(user);
-			}
-		}
-
-		return result;
+		return users.stream().filter(user -> user.hasName(searchText)).toList();
 	}
 }

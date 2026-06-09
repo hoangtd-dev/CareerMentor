@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 
 import lombok.Getter;
 import lombok.Setter;
-
+import constants.Constants;
 import constants.TransactionTypeEnum;
 
 @Getter
@@ -13,18 +13,31 @@ import constants.TransactionTypeEnum;
 public class Transaction {
 	private TransactionTypeEnum type;
 	private BigDecimal amount;
-	private String accountNumber;
+	private String cardNumber;
 	private LocalDateTime createdDate;
 
-	public Transaction(TransactionTypeEnum type, BigDecimal amount, String accountNumber, LocalDateTime createdDate) {
+	public Transaction(TransactionTypeEnum type, BigDecimal amount, String cardNumber) {
+		this.type = type;
+		this.amount = amount;
+		this.cardNumber = cardNumber;
+		this.createdDate = LocalDateTime.now();
+	}
+
+	public Transaction(TransactionTypeEnum type, BigDecimal amount, String cardNumber, LocalDateTime createdDate) {
+		this.type = type;
+		this.amount = amount;
+		this.cardNumber = cardNumber;
+		this.createdDate = createdDate;
 	}
 
 	public String mappingToRawData() {
-		return String.format("%d,%d,%d,%d", type, amount.toPlainString(), accountNumber, createdDate);
+		return String.format("%s,%s,%s,%s", type, amount.toPlainString(), cardNumber,
+				createdDate.format(Constants.datetimeFormatter));
 	}
 
 	@Override
 	public String toString() {
-		return String.format("Type: %d - Amount: %d - Create Date: %d", type, amount.toPlainString(), createdDate.toString());
+		return String.format("Type: %s - Amount: %s - Create Date: %s", type, amount.toPlainString(),
+				createdDate.format(Constants.formatter));
 	}
 }

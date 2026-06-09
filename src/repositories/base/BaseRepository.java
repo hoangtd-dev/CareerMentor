@@ -17,6 +17,7 @@ public abstract class BaseRepository<T> implements IRepository<T> {
 	}
 
 	protected abstract String mappingObjectToString(ArrayList<T> data);
+
 	protected abstract T mappingStringToObject(String data);
 
 	@Override

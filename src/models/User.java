@@ -46,16 +46,16 @@ public class User {
     }
 
     public boolean checkCredential(String username, String password) {
-        if (!this.username.equals(username))
-            return false;
+        if (this.username.equals(username) && this.password.equals(password)) {
+            failedTime = 0;
+            return true;
+        }
 
         if (!this.password.equals(password)) {
             failedTime++;
-            return false;
         }
 
-        failedTime = 0;
-        return true;
+        return false;
     }
 
     public boolean hasName(String searchText) {

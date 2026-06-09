@@ -1,20 +1,35 @@
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 
+import constants.BankEnum;
 import enums.LoginStatus;
+import models.Transaction;
 import models.User;
+import models.base.BankCard;
 import services.AuthService;
+import services.BankCardService;
+import services.TransactionService;
 import services.UserService;
 import utils.ScannerUtils;
 
 public class UserManagementSystem {
     private final UserService userService;
     private final AuthService authService;
+    private final TransactionService transactionService;
+    private final BankCardService bankCardService;
     private boolean isRunning = true;
 
-    public UserManagementSystem(UserService userService, AuthService authService) {
+    public UserManagementSystem(
+            UserService userService,
+            AuthService authService,
+            TransactionService transactionService,
+            BankCardService bankCardService) {
         this.userService = userService;
         this.authService = authService;
+        this.bankCardService = bankCardService;
+        this.transactionService = transactionService;
     }
 
     public void run() {
@@ -71,24 +86,110 @@ public class UserManagementSystem {
         }
     }
 
+    private BankEnum getBankName(int option) {
+        return (switch (option) {
+            case 1 -> BankEnum.ANZ;
+            case 2 -> BankEnum.NAB;
+            case 3 -> BankEnum.CMW;
+            default -> null;
+        });
+    }
+
     private void registerNewCard() {
-        System.out.println("registerNewCard");
+        int bankNameOption = 0;
+        while (bankNameOption < 1 || bankNameOption > 3) {
+            bankNameOption = ScannerUtils.inputNumber("1.ANZ\n2.NAB\n3.CMW\nChoose your bank: ");
+        }
+        BankEnum bankName = getBankName(bankNameOption);
+
+        String cardNumber = "";
+        while (!cardNumber.matches("\\d{10}")) {
+            cardNumber = ScannerUtils.inputString("Card number (10 digit): ");
+        }
+
+        boolean result = bankCardService.registerNewCard(bankName, cardNumber, BigDecimal.ZERO);
+
+        if (result) {
+            System.out.println("Card Created successfully !!!");
+        } else {
+            System.out.println("Card number is existed in system !!!");
+        }
     }
 
     private void deposit() {
-        System.out.println("deposit");
+        if (!checkCardExisted())
+            return;
+
+        String amountStr = ScannerUtils.inputString("How much do you want to deposit?: ");
+
+        try {
+            BigDecimal amount = new BigDecimal(amountStr);
+            bankCardService.deposit(amount);
+            System.out.println("Deposit successfully !!!");
+        } catch (NumberFormatException e) {
+            System.out.println("Amount should be a number");
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     private void withdraw() {
-        System.out.println("withdraw");
+        if (!checkCardExisted())
+            return;
+
+        String amountStr = ScannerUtils.inputString("How much do you want to withdraw?: ");
+
+        try {
+            BigDecimal amount = new BigDecimal(amountStr);
+            bankCardService.withdraw(amount);
+            System.out.println("Withdraw successfully !!!");
+        } catch (NumberFormatException e) {
+            System.out.println("Amount should be a number");
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     private void viewBalance() {
-        System.out.println("viewBalance");
+        if (!checkCardExisted())
+            return;
+
+        System.out.println(bankCardService.getBalanceMessage());
     }
 
     private void viewTransactionHistory() {
-        System.out.println("viewTransactionHistory");
+        if (!checkCardExisted())
+            return;
+
+        BankCard card = bankCardService.getCurrentCard();
+
+        try {
+            List<Transaction> transactions = transactionService.getTransactionHistory(card.getCardNumber(),
+                    card.numberOfTransactionDisplayed());
+
+            for (int i = 1; i <= transactions.size(); i++) {
+                System.out.println(i + ". " + transactions.get(i - 1).toString());
+            }
+        } catch (UnsupportedOperationException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    private boolean checkCardExisted() {
+        if (!bankCardService.hasCard()) {
+            System.out.println("Please add your card first !!!");
+            registerNewCard();
+            return false;
+        }
+
+        String option = ScannerUtils
+                .inputString("Press 'Y' to use the current card, or any other key to add a new card: ");
+        if (!option.toLowerCase().equals("y")) {
+            registerNewCard();
+            return false;
+        }
+
+        return true;
     }
 
     private void logout() {
@@ -112,26 +213,26 @@ public class UserManagementSystem {
         String username = ScannerUtils.inputString("username: ");
         String password = ScannerUtils.inputString("password: ");
 
-        authService.register(firstname, lastname, dob, username, password);
+        boolean result = authService.register(firstname, lastname, dob, username, password);
 
-        System.out.println("User Register Successful !!!");
+        if (result) {
+            System.out.println("User Register Successful !!!");
+        } else {
+            System.out.println("Username is existed !!!");
+        }
     }
 
     private void displayAllUsers() {
         ArrayList<User> users = userService.getAllUsers();
-        for (User user : users) {
-            System.out.println(user.toString());
-        }
+        users.forEach(user -> System.out.println(user.toString()));
     }
 
     private void searchByName() {
         String searchText = ScannerUtils.inputString("Find user by first name or last name: ");
-        ArrayList<User> users = userService.getByName(searchText);
+        List<User> users = userService.getByName(searchText);
 
         if (users.size() > 0) {
-            for (User user : users) {
-                System.out.println(user.toString());
-            }
+            users.forEach(user -> System.out.println(user.toString()));
         } else {
             System.out.println("No user found with name: " + searchText);
         }

@@ -22,17 +22,14 @@ public class TransactionRepository extends BaseRepository<Transaction> {
 				TransactionTypeEnum.valueOf(splitData[0]),
 				new BigDecimal(splitData[1]),
 				splitData[2],
-				LocalDateTime.parse(splitData[3], Constants.formatter));
+				LocalDateTime.parse(splitData[3], Constants.datetimeFormatter));
 	}
 
 	@Override
 	protected String mappingObjectToString(ArrayList<Transaction> transactions) {
-		String result = "";
-
-		for (Transaction transaction : transactions) {
-			result += transaction.mappingToRawData() + "\n";
-		}
-
-		return result;
+		return transactions
+				.stream()
+				.map(transaction -> transaction.mappingToRawData())
+				.reduce("", (pre, cur) -> pre + cur + "\n");
 	}
 }

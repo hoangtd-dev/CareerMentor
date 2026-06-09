@@ -28,12 +28,9 @@ public class UserRepository extends BaseRepository<User> {
 
 	@Override
 	protected String mappingObjectToString(ArrayList<User> users) {
-		String result = "";
-
-		for (User user : users) {
-			result += user.mappingToRawData() + "\n";
-		}
-
-		return result;
+		return users
+				.stream()
+				.map(user -> user.mappingToRawData())
+				.reduce("", (pre, cur) -> pre + cur + "\n");
 	}
 }

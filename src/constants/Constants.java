@@ -4,4 +4,5 @@ import java.time.format.DateTimeFormatter;
 
 public class Constants {
 	public static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-M-d");
+	public static final DateTimeFormatter datetimeFormatter = DateTimeFormatter.ofPattern("yyyy-M-d'T'HH:mm:ss");
 }

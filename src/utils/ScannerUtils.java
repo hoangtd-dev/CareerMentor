@@ -16,6 +16,7 @@ public class ScannerUtils {
                 scanner.nextLine();
                 return result;
             } catch (Exception e) {
+                scanner.nextLine();
                 System.out.println("Input should be number !!!!");
             }
         }
