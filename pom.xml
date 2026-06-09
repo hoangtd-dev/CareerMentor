@@ -12,6 +12,7 @@
 
 	<build>
 		<sourceDirectory>src</sourceDirectory>
+		<testSourceDirectory>test</testSourceDirectory>
 
 		<plugins>
 			<plugin>
@@ -25,6 +26,11 @@
 							<artifactId>lombok</artifactId>
 							<version>1.18.46</version>
 						</path>
+						<plugin>
+							<groupId>org.apache.maven.plugins</groupId>
+							<artifactId>maven-surefire-plugin</artifactId>
+							<version>3.1.2</version>
+            </plugin>
 					</annotationProcessorPaths>
 				</configuration>
 			</plugin>
@@ -37,6 +43,12 @@
 					<artifactId>lombok</artifactId>
 					<version>1.18.46</version>
 					<scope>provided</scope>
+			</dependency>
+			<dependency>
+					<groupId>org.junit.jupiter</groupId>
+					<artifactId>junit-jupiter</artifactId>
+					<version>5.10.0</version>
+					<scope>test</scope>
 			</dependency>
 	</dependencies>
 </project>
