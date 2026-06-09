@@ -7,10 +7,11 @@ import lombok.Getter;
 import lombok.Setter;
 import constants.Constants;
 import constants.TransactionTypeEnum;
+import interfaces.IBaseEntity;
 
 @Getter
 @Setter
-public class Transaction {
+public class Transaction implements IBaseEntity {
 	private TransactionTypeEnum type;
 	private BigDecimal amount;
 	private String cardNumber;
@@ -30,6 +31,7 @@ public class Transaction {
 		this.createdDate = createdDate;
 	}
 
+	@Override
 	public String mappingToRawData() {
 		return String.format("%s,%s,%s,%s", type, amount.toPlainString(), cardNumber,
 				createdDate.format(Constants.datetimeFormatter));

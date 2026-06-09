@@ -5,13 +5,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import constants.TransactionTypeEnum;
+import interfaces.IRepository;
 import models.Transaction;
-import repositories.TransactionRepository;
 
 public class TransactionService {
-	private final TransactionRepository transactionRepository;
+	private final IRepository<Transaction> transactionRepository;
 
-	public TransactionService(TransactionRepository transactionRepository) {
+	public TransactionService(IRepository<Transaction> transactionRepository) {
 		this.transactionRepository = transactionRepository;
 	}
 

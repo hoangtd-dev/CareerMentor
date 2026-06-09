@@ -1,7 +1,6 @@
 package repositories;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 
 import constants.Constants;
 import models.User;
@@ -24,13 +23,5 @@ public class UserRepository extends BaseRepository<User> {
 				splitData[4],
 				splitData[5],
 				Integer.parseInt(splitData[6]));
-	}
-
-	@Override
-	protected String mappingObjectToString(ArrayList<User> users) {
-		return users
-				.stream()
-				.map(user -> user.mappingToRawData())
-				.reduce("", (pre, cur) -> pre + cur + "\n");
 	}
 }

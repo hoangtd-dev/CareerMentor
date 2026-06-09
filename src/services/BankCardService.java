@@ -6,19 +6,19 @@ import java.util.List;
 
 import constants.BankEnum;
 import constants.TransactionTypeEnum;
+import interfaces.IRepository;
 import models.ANZBankCard;
 import models.CMWBankCard;
 import models.NABBankCard;
 import models.User;
 import models.base.BankCard;
-import repositories.BankCardRepository;
 
 public class BankCardService {
-	private final BankCardRepository cardRepository;
+	private final IRepository<BankCard> cardRepository;
 	private final AuthService authService;
 	private final TransactionService transactionService;
 
-	public BankCardService(BankCardRepository cardRepository, TransactionService transactionService,
+	public BankCardService(IRepository<BankCard> cardRepository, TransactionService transactionService,
 			AuthService authService) {
 		this.cardRepository = cardRepository;
 		this.authService = authService;

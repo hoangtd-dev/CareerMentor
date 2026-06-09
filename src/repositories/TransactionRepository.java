@@ -2,7 +2,6 @@ package repositories;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 
 import constants.Constants;
 import constants.TransactionTypeEnum;
@@ -23,13 +22,5 @@ public class TransactionRepository extends BaseRepository<Transaction> {
 				new BigDecimal(splitData[1]),
 				splitData[2],
 				LocalDateTime.parse(splitData[3], Constants.datetimeFormatter));
-	}
-
-	@Override
-	protected String mappingObjectToString(ArrayList<Transaction> transactions) {
-		return transactions
-				.stream()
-				.map(transaction -> transaction.mappingToRawData())
-				.reduce("", (pre, cur) -> pre + cur + "\n");
 	}
 }

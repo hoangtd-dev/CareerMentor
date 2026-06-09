@@ -7,18 +7,24 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import interfaces.IBaseEntity;
 import interfaces.IRepository;
 
-public abstract class BaseRepository<T> implements IRepository<T> {
+public abstract class BaseRepository<T extends IBaseEntity> implements IRepository<T> {
 	private final String path;
 
 	public BaseRepository(String path) {
 		this.path = path;
 	}
 
-	protected abstract String mappingObjectToString(ArrayList<T> data);
-
 	protected abstract T mappingStringToObject(String data);
+
+	private String mappingObjectToString(ArrayList<T> items) {
+		return items
+				.stream()
+				.map(item -> item.mappingToRawData())
+				.reduce("", (pre, cur) -> pre + cur + "\n");
+	}
 
 	@Override
 	public void save(ArrayList<T> data) {

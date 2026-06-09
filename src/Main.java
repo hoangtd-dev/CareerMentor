@@ -1,3 +1,7 @@
+import interfaces.IRepository;
+import models.Transaction;
+import models.User;
+import models.base.BankCard;
 import repositories.BankCardRepository;
 import repositories.TransactionRepository;
 import repositories.UserRepository;
@@ -9,9 +13,9 @@ import utils.ScannerUtils;
 
 class Main {
   public static void main(String[] args) {
-    UserRepository userRepository = new UserRepository("user.txt");
-    TransactionRepository transactionRepository = new TransactionRepository("transactions.txt");
-    BankCardRepository bankCardRepository = new BankCardRepository("cards.txt");
+    IRepository<User> userRepository = new UserRepository("user.txt");
+    IRepository<Transaction> transactionRepository = new TransactionRepository("transactions.txt");
+    IRepository<BankCard> bankCardRepository = new BankCardRepository("cards.txt");
 
     UserService userService = new UserService(userRepository);
     AuthService authService = new AuthService(userRepository);

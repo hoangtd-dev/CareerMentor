@@ -3,12 +3,13 @@ package models;
 import java.time.LocalDate;
 import java.util.UUID;
 
+import interfaces.IBaseEntity;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class User {
+public class User implements IBaseEntity {
     private String id;
     private String firstname;
     private String lastname;
@@ -37,6 +38,7 @@ public class User {
         this.failedTime = failedTime;
     }
 
+    @Override
     public String mappingToRawData() {
         return String.format("%s,%s,%s,%s,%s,%s,%d", id, firstname, lastname, dob, username, password, failedTime);
     }

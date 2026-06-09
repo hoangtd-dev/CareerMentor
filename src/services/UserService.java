@@ -5,12 +5,11 @@ import java.util.List;
 
 import interfaces.IRepository;
 import models.User;
-import repositories.UserRepository;
 
 public class UserService {
 	private final IRepository<User> repository;
 
-	public UserService(UserRepository repository) {
+	public UserService(IRepository<User> repository) {
 		this.repository = repository;
 	}
 

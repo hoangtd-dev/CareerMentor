@@ -5,10 +5,11 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import constants.BankEnum;
+import interfaces.IBaseEntity;
 
 @Getter
 @Setter
-public abstract class BankCard {
+public abstract class BankCard implements IBaseEntity {
 	@Getter(AccessLevel.NONE)
 	@Setter(AccessLevel.NONE)
 	private final BigDecimal minBalance = new BigDecimal("20");
@@ -55,6 +56,7 @@ public abstract class BankCard {
 		return "******" + cardNumber.substring(5);
 	}
 
+	@Override
 	public String mappingToRawData() {
 		return String.format("%s,%s,%s,%s,%s", bankName, cardNumber, balance.toPlainString(), userId, fullname);
 	}

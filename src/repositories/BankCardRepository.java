@@ -1,7 +1,6 @@
 package repositories;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 
 import constants.BankEnum;
 import models.ANZBankCard;
@@ -26,13 +25,5 @@ public class BankCardRepository extends BaseRepository<BankCard> {
 			case BankEnum.CMW -> new CMWBankCard(splitData[1], new BigDecimal(splitData[2]), splitData[3], splitData[4]);
 			default -> throw new IllegalArgumentException("Bank does not exist");
 		});
-	}
-
-	@Override
-	protected String mappingObjectToString(ArrayList<BankCard> cards) {
-		return cards
-				.stream()
-				.map(card -> card.mappingToRawData())
-				.reduce("", (pre, cur) -> pre + cur + "\n");
 	}
 }
