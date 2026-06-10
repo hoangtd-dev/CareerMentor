@@ -1,7 +1,6 @@
 package repositories.base;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -56,8 +55,8 @@ public abstract class BaseRepository<T extends IBaseEntity> implements IReposito
 				data.add(mappingStringToObject(item));
 			}
 			return data;
-		} catch (FileNotFoundException e) {
-			System.out.println("File not found !!!");
+		} catch (Exception e) {
+			System.out.println("Cannot load file !!!");
 			return null;
 		}
 	}
