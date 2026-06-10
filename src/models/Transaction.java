@@ -3,6 +3,7 @@ package models;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import constants.Constants;
@@ -11,6 +12,7 @@ import interfaces.IBaseEntity;
 
 @Getter
 @Setter
+@AllArgsConstructor
 public class Transaction implements IBaseEntity {
 	private TransactionTypeEnum type;
 	private BigDecimal amount;
@@ -22,13 +24,6 @@ public class Transaction implements IBaseEntity {
 		this.amount = amount;
 		this.cardNumber = cardNumber;
 		this.createdDate = LocalDateTime.now();
-	}
-
-	public Transaction(TransactionTypeEnum type, BigDecimal amount, String cardNumber, LocalDateTime createdDate) {
-		this.type = type;
-		this.amount = amount;
-		this.cardNumber = cardNumber;
-		this.createdDate = createdDate;
 	}
 
 	@Override

@@ -4,12 +4,14 @@ import java.math.BigDecimal;
 
 import enums.BankEnum;
 import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import interfaces.IBaseEntity;
 
 @Getter
 @Setter
+@AllArgsConstructor
 public abstract class BankCard implements IBaseEntity {
 	@Getter(AccessLevel.NONE)
 	@Setter(AccessLevel.NONE)
@@ -28,14 +30,6 @@ public abstract class BankCard implements IBaseEntity {
 	public abstract String getBalanceMessage();
 
 	public abstract int numberOfTransactionDisplayed();
-
-	public BankCard(BankEnum bankName, String cardNumber, BigDecimal balance, String userId, String fullname) {
-		this.bankName = bankName;
-		this.cardNumber = cardNumber;
-		this.balance = balance;
-		this.userId = userId;
-		this.fullname = fullname;
-	}
 
 	public boolean deposit(BigDecimal amount) {
 		if (amount.compareTo(getMinimumDeposit()) == -1)

@@ -4,11 +4,13 @@ import java.time.LocalDate;
 import java.util.UUID;
 
 import interfaces.IBaseEntity;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
+@AllArgsConstructor
 public class User implements IBaseEntity {
     private String id;
     private String firstname;
@@ -25,17 +27,6 @@ public class User implements IBaseEntity {
         this.dob = dob;
         this.username = username;
         this.password = password;
-    }
-
-    public User(String id, String firstname, String lastname, LocalDate dob, String username, String password,
-            int failedTime) {
-        this.id = id;
-        this.firstname = firstname;
-        this.lastname = lastname;
-        this.dob = dob;
-        this.username = username;
-        this.password = password;
-        this.failedTime = failedTime;
     }
 
     @Override
