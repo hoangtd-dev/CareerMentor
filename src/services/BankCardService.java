@@ -29,16 +29,14 @@ public class BankCardService {
 		return getCurrentCard(cards);
 	}
 
-	public boolean registerNewCard(BankEnum bankName, String cardNumber, BigDecimal balance) {
+	public void registerNewCard(BankEnum bankName, String cardNumber, BigDecimal balance) {
 		if (!cardNumber.matches("\\d{10}")) 
 			throw new IllegalArgumentException("Card number must have 10 digit");
 
 		List<BankCard> cards = cardRepository.load();
 
-		boolean isExisted = isCardNumberExisted(cards, cardNumber);
-
-		if (isExisted) {
-			return false;
+		if (isCardNumberExisted(cards, cardNumber)) {
+			throw new IllegalArgumentException("Card number is existed in system !!!");
 		}
 
 		User user = authService.getUser();
@@ -52,8 +50,6 @@ public class BankCardService {
 		});
 
 		cardRepository.save(cards);
-
-		return true;
 	}
 
 	public void deposit(BigDecimal amount) {

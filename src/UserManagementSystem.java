@@ -106,12 +106,11 @@ public class UserManagementSystem {
             cardNumber = ScannerUtils.inputString("Card number (10 digit): ");
         }
 
-        boolean result = bankCardService.registerNewCard(bankName, cardNumber, BigDecimal.ZERO);
-
-        if (result) {
+        try {
+            bankCardService.registerNewCard(bankName, cardNumber, BigDecimal.ZERO);
             System.out.println("Card Created successfully !!!");
-        } else {
-            System.out.println("Card number is existed in system !!!");
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
         }
     }
 
@@ -212,12 +211,10 @@ public class UserManagementSystem {
         String username = ScannerUtils.inputString("username: ");
         String password = ScannerUtils.inputString("password: ");
 
-        boolean result = authService.register(firstname, lastname, dob, username, password);
-
-        if (result) {
-            System.out.println("User Register Successful !!!");
-        } else {
-            System.out.println("Username is existed !!!");
+        try {
+            authService.register(firstname, lastname, dob, username, password);
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
         }
     }
 

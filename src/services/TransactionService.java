@@ -15,13 +15,9 @@ public class TransactionService {
 	}
 
 	public List<Transaction> getTransactionsByCardNumber(List<Transaction> transactions, String cardNumber) {
-		try {
-			return transactions.stream()
-					.filter(transaction -> transaction.getCardNumber().equals(cardNumber))
-					.toList();
-		} catch (Exception e) {
-			return null;
-		}
+		return transactions.stream()
+				.filter(transaction -> transaction.getCardNumber().equals(cardNumber))
+				.toList();
 	}
 
 	public void createTransaction(TransactionTypeEnum type, BigDecimal amount, String cardNumber) {

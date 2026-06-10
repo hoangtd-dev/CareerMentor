@@ -28,18 +28,17 @@ public class AuthService {
 		return authUser;
 	}
 
-	public boolean register(String firstname, String lastname, LocalDate dob, String username, String password) {
+	public void register(String firstname, String lastname, LocalDate dob, String username, String password) {
 		List<User> users = repository.load();
 
 		boolean isExisted = isUsernameExisted(users, username);
 
 		if (isExisted)
-			return false;
+			throw new IllegalArgumentException("Username is duplicated !!!");
 
 		users.add(new User(firstname, lastname, dob, username, password));
 
 		repository.save(users);
-		return true;
 	}
 
 	public LoginStatusEnum login(String username, String password) {
