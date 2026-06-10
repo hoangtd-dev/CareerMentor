@@ -23,9 +23,9 @@ public abstract class BankCard implements IBaseEntity {
 	private String userId;
 	private String fullname;
 
-	protected abstract BigDecimal getMinimumDeposit();
+	public abstract BigDecimal getMinimumDeposit();
 
-	protected abstract BigDecimal getWithdrawLimit();
+	public abstract BigDecimal getWithdrawLimit();
 
 	public abstract String getBalanceMessage();
 
