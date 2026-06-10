@@ -20,18 +20,17 @@ public class AuthServiceTest {
     }
 
     @Test
-    @DisplayName("register should return true when username does not exist")
-    void register_returnTrue_whenUsernameNotExisted() {
-        boolean result = authService.register("John", "Doe", LocalDate.of(1990, 1, 1), "john", "pass");
-        assertTrue(result);
+    @DisplayName("register should not throw when username does not exist")
+    void register_doesNotThrow_whenUsernameNotExisted() {
+        assertDoesNotThrow(() -> authService.register("John", "Doe", LocalDate.of(1990, 1, 1), "john", "pass"));
     }
 
     @Test
-    @DisplayName("register should return false when username already exists")
-    void register_returnFalse_whenUsernameAlreadyExisted() {
+    @DisplayName("register should throw IllegalArgumentException when username already exists")
+    void register_throwException_whenUsernameAlreadyExisted() {
         authService.register("John", "Doe", LocalDate.of(1990, 1, 1), "john", "pass");
-        boolean result = authService.register("Jane", "Doe", LocalDate.of(1991, 1, 1), "john", "pass2");
-        assertFalse(result);
+        assertThrows(IllegalArgumentException.class,
+                () -> authService.register("Jane", "Doe", LocalDate.of(1991, 1, 1), "john", "pass2"));
     }
 
     @Test

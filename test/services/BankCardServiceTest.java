@@ -36,18 +36,17 @@ public class BankCardServiceTest {
     }
 
     @Test
-    @DisplayName("registerNewCard should return true when card number does not exist")
-    void registerNewCard_returnTrue_whenCardNumberNotExisted() {
-        boolean result = bankCardService.registerNewCard(BankEnum.ANZ, "1234567890", new BigDecimal("1000"));
-        assertTrue(result);
+    @DisplayName("registerNewCard should not throw when card number does not exist")
+    void registerNewCard_doesNotThrow_whenCardNumberNotExisted() {
+        assertDoesNotThrow(() -> bankCardService.registerNewCard(BankEnum.ANZ, "1234567890", new BigDecimal("1000")));
     }
 
     @Test
-    @DisplayName("registerNewCard should return false when card number already exists")
-    void registerNewCard_returnFalse_whenCardNumberAlreadyExisted() {
+    @DisplayName("registerNewCard should throw IllegalArgumentException when card number already exists")
+    void registerNewCard_throwException_whenCardNumberAlreadyExisted() {
         bankCardService.registerNewCard(BankEnum.ANZ, "1234567890", new BigDecimal("1000"));
-        boolean result = bankCardService.registerNewCard(BankEnum.NAB, "1234567890", new BigDecimal("500"));
-        assertFalse(result);
+        assertThrows(IllegalArgumentException.class,
+                () -> bankCardService.registerNewCard(BankEnum.NAB, "1234567890", new BigDecimal("500")));
     }
 
     @Test
