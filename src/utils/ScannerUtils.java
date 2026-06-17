@@ -37,7 +37,7 @@ public class ScannerUtils {
             try {
                 System.out.print(placeholder);
                 String dob = scanner.nextLine();
-                return LocalDate.parse(dob, Constants.formatter);
+                return LocalDate.parse(dob, Constants.DATE_FORMATTER);
             } catch (Exception e) {
                 System.out.println("Please follow the date format: YYYY-MM-dd !!!");
             }

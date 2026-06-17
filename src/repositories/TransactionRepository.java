@@ -21,6 +21,6 @@ public class TransactionRepository extends BaseRepository<Transaction> {
 				TransactionTypeEnum.valueOf(splitData[0]),
 				new BigDecimal(splitData[1]),
 				splitData[2],
-				LocalDateTime.parse(splitData[3], Constants.datetimeFormatter));
+				LocalDateTime.parse(splitData[3], Constants.DATETIME_FORMATTER));
 	}
 }

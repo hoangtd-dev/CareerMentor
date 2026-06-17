@@ -19,7 +19,7 @@ public class UserRepository extends BaseRepository<User> {
 				splitData[0],
 				splitData[1],
 				splitData[2],
-				LocalDate.parse(splitData[3], Constants.formatter),
+				LocalDate.parse(splitData[3], Constants.DATE_FORMATTER),
 				splitData[4],
 				splitData[5],
 				Integer.parseInt(splitData[6]));

@@ -29,12 +29,12 @@ public class Transaction implements IBaseEntity {
 	@Override
 	public String mappingToRawData() {
 		return String.format("%s,%s,%s,%s", type, amount.toPlainString(), cardNumber,
-				createdDate.format(Constants.datetimeFormatter));
+				createdDate.format(Constants.DATETIME_FORMATTER));
 	}
 
 	@Override
 	public String toString() {
 		return String.format("Type: %s - Amount: %s - Create Date: %s", type, amount.toPlainString(),
-				createdDate.format(Constants.formatter));
+				createdDate.format(Constants.DATE_FORMATTER));
 	}
 }
