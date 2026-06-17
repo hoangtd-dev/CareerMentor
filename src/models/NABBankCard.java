@@ -11,11 +11,10 @@ import models.base.BankCard;
 @Getter
 @Setter
 public class NABBankCard extends BankCard {
-	private BigDecimal minimumDeposit = new BigDecimal("10");
-	private BigDecimal withdrawLimit = new BigDecimal("2000");
-
 	public NABBankCard(String cardNumber, BigDecimal balance, String userId, String fullname) {
 		super(BankEnum.NAB, cardNumber, balance, userId, fullname);
+		setMinimumDeposit(new BigDecimal("10"));
+		setWithdrawLimit(new BigDecimal("2000"));
 	}
 
 	@Override

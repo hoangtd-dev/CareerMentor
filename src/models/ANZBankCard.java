@@ -11,11 +11,10 @@ import models.base.BankCard;
 @Getter
 @Setter
 public class ANZBankCard extends BankCard {
-	private BigDecimal minimumDeposit = new BigDecimal("10");
-	private BigDecimal withdrawLimit = new BigDecimal("1000");
-
 	public ANZBankCard(String cardNumber, BigDecimal balance, String userId, String fullname) {
 		super(BankEnum.ANZ, cardNumber, balance, userId, fullname);
+		setMinimumDeposit(new BigDecimal("10"));
+		setWithdrawLimit(new BigDecimal("1000"));
 	}
 
 	@Override

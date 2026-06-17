@@ -11,11 +11,10 @@ import models.base.BankCard;
 @Getter
 @Setter
 public class CMWBankCard extends BankCard {
-	private BigDecimal minimumDeposit = new BigDecimal("5");
-	private BigDecimal withdrawLimit = new BigDecimal("3000");
-
 	public CMWBankCard(String cardNumber, BigDecimal balance, String userId, String fullname) {
 		super(BankEnum.CMW, cardNumber, balance, userId, fullname);
+		setMinimumDeposit(new BigDecimal("5"));
+		setWithdrawLimit(new BigDecimal("3000"));
 	}
 
 	@Override
