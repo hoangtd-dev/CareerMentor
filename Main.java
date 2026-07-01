@@ -27,8 +27,9 @@ public class Main {
         // System.out.println(wrapText("SMS messages are really short", 12));
         // 3
 
-        System.out.println(wrapText("This is a test", 4));
-        // 3
+        // findPath(new int[] { 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1, 0, 0 });
+
+        getFiboList(50);
     }
 
     // O(n) => m can reduce the loop time but it is still a linear
@@ -115,5 +116,28 @@ public class Main {
             result++;
 
         return result;
+    }
+
+    public static int findPath(int[] paths) {
+        int destination = paths.length;
+        ArrayList<Integer> fiboList = getFiboList(destination);
+
+        // Đi qua từng điểm để check
+
+        return -1;
+    }
+
+    public static ArrayList<Integer> getFiboList(int max) {
+        ArrayList<Integer> arr = new ArrayList<>();
+        int first = 1;
+        int second = 2;
+
+        while (first < max) {
+            arr.add(first);
+            int temp = first + second;
+            first = second;
+            second = temp;
+        }
+        return arr;
     }
 }
