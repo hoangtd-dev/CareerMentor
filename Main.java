@@ -9,7 +9,8 @@ public class Main {
         // System.out.println(findDominator(arr));
         // int[] arr2 = { 0, 1, 3, -2, 0, 1, 0, -3, 2, 3 };
         // System.out.println(getMaxPitDepth(arr2));
-        System.out.println(fogJump(new int[] { 1, 1, 0, 0, 1, 0, 0, 1, 0, 0 }));
+        // System.out.println(fogJump(new int[] { 1, 1, 0, 0, 1, 0, 0, 1, 0, 0 }));
+        System.out.println(changeCoins(50));
     }
 
     // O(n) - Space(n) using hashmap
@@ -97,5 +98,19 @@ public class Main {
         }
 
         return -1;
+    }
+
+    public static int changeCoins(int money) {
+        int[] coins = new int[] { 20, 10, 5, 1 };
+        int totalCoin = 0;
+
+        for (int coin : coins) {
+            totalCoin += money / coin;
+            money %= coin;
+            if (money == 0)
+                break;
+        }
+
+        return totalCoin;
     }
 }
