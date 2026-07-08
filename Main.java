@@ -9,7 +9,7 @@ public class Main {
         // System.out.println(findDominator(arr));
         // int[] arr2 = { 0, 1, 3, -2, 0, 1, 0, -3, 2, 3 };
         // System.out.println(getMaxPitDepth(arr2));
-        // System.out.println(fogJump(new int[] { 1, 1, 0, 0, 1, 0, 0, 1, 0, 0 }));
+        // System.out.println(fogJump(new int[] { 1, 1, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }));
         System.out.println(changeCoins(50));
     }
 
@@ -112,5 +112,36 @@ public class Main {
         }
 
         return totalCoin;
+    }
+
+    public static int changeCoinsV2(int money) {
+        // money = 8
+        int[] coins = new int[] { 1, 5, 7 };
+
+        int[] optimizedCoinsForMoney = new int[money + 1];
+        optimizedCoinsForMoney[0] = 0;
+
+        for (int i = 1; i < optimizedCoinsForMoney.length; i++) {
+            optimizedCoinsForMoney[i] = money + 1;
+        }
+
+        // 0 1 2 3 4 5 6 7 8
+        // Start: 0 9 9 9 9 9 9 9 9
+        // 0 1 9 9 9 9 9 9 9
+        // 0 1 2 9 9 9 9 9 9
+        for (int i = 1; i < optimizedCoinsForMoney.length; i++) {
+
+            for (int coin : coins) {
+                if (i < coin) continue;
+
+                optimizedCoinsForMoney[i] = Math.min(optimizedCoinsForMoney[i - coin] + 1, optimizedCoinsForMoney[i]);
+            }
+        }
+
+        if (optimizedCoinsForMoney[money] > money) {
+            return -1;
+        } else {
+            return optimizedCoinsForMoney[money];
+        }
     }
 }
