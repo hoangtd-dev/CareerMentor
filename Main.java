@@ -19,11 +19,15 @@ public class Main {
         if (length == 0)
             return -1;
 
+        // Space (count)
         HashMap<Integer, Integer> count = new HashMap<>();
+
+        // O(n)
         for (int num : arr) {
             count.put(num, count.getOrDefault(num, 0) + 1);
         }
 
+        // O(n)
         for (int i = 0; i < length; i++) {
             if (count.get(arr[i]) > length / 2) {
                 return i;
@@ -33,7 +37,9 @@ public class Main {
         return -1;
     }
 
-    // O(n^2)
+    // O(n*m)
+    // n = total point
+    // m = nearest peak of left and right
     public static int getMaxPitDepth(int[] arr) {
         int length = arr.length;
         int deepest = -1;
@@ -62,6 +68,8 @@ public class Main {
         return deepest;
     }
 
+    // O(24) + O(n x 24) => O(n)
+    // Space: O(n) (Queue)
     public static int fogJump(int[] paths) {
         // Fibonancci
         int[] fiboList = new int[24];
@@ -100,6 +108,7 @@ public class Main {
         return -1;
     }
 
+    // O(coins)
     public static int changeCoins(int money) {
         int[] coins = new int[] { 20, 10, 5, 1 };
         int totalCoin = 0;
@@ -114,6 +123,9 @@ public class Main {
         return totalCoin;
     }
 
+    // O(n) + O(n * m) => O(n)
+    // n = money + 1
+    // m = coins => constraint
     public static int changeCoinsV2(int money) {
         // money = 8
         int[] coins = new int[] { 1, 5, 7 };
