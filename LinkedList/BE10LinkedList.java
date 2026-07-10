@@ -1,6 +1,6 @@
 public class BE10LinkedList {
 	private int length = 0;
-	public BE10LinkedListItem head;
+	private BE10LinkedListItem head;
 
 	// O(n)
 	// n = length of linkedlist
