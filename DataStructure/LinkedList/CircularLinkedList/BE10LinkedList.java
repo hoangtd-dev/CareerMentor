@@ -36,8 +36,7 @@ public class BE10LinkedList {
 
 	// O(1)
 	public void addAtEnd(BE10LinkedListItem item) {
-		item.prev = null;
-		item.next = null;
+		item.next = head;
 		if (head == null) {
 			head = item;
 			tail = item;
@@ -45,7 +44,6 @@ public class BE10LinkedList {
 			return;
 		}
 
-		item.prev = tail;
 		tail.next = item;
 		tail = item;
 		length++;
@@ -54,6 +52,7 @@ public class BE10LinkedList {
 	// O(n)
 	public void addAtIndex(BE10LinkedListItem item, int index) {
 		if (head == null) {
+			item.next = head;
 			head = item;
 			tail = item;
 			length++;
@@ -61,9 +60,8 @@ public class BE10LinkedList {
 		}
 
 		if (index == 0) {
-			head.prev = item;
-			item.prev = null;
 			item.next = head;
+			tail.next = item;
 			head = item;
 			length++;
 			return;
@@ -73,12 +71,9 @@ public class BE10LinkedList {
 			addAtEnd(item);
 			return;
 		}
-
 		BE10LinkedListItem prevItem = get(index - 1);
 
-		item.prev = prevItem;
 		item.next = prevItem.next;
-		prevItem.next.prev = item;
 		prevItem.next = item;
 		length++;
 	}
@@ -93,37 +88,14 @@ public class BE10LinkedList {
 			return;
 		}
 
-		if (index == length - 1) {
-			removeAtLast();
-			return;
-		}
-
 		BE10LinkedListItem prev = get(index - 1);
-
 		prev.next = prev.next.next;
-		prev.next.prev = prev;
-		length--;
-	}
-
-	// O(1)
-	public void removeAtLast() {
-		if (size() == 1) {
-			head = null;
-			tail = null;
-			length--;
-			return;
-		}
-
-		tail = tail.prev;
-		tail.next = null;
-
 		length--;
 	}
 
 	public void clear() {
 		length = 0;
 		head = null;
-		tail = null;
 	}
 
 	// O(1)
@@ -136,7 +108,7 @@ public class BE10LinkedList {
 			tail = null;
 		} else {
 			head = head.next;
-			head.prev = null;
+			tail.next = head;
 		}
 
 		length--;
@@ -147,13 +119,14 @@ public class BE10LinkedList {
 		if (length == 0)
 			return;
 
+		int index = 0;
 		BE10LinkedListItem current = head;
-		System.out.println(String.format("Id: %s - Value: %s - Next: %s - Pre: %s", current.toString(), current.value,
-				current.next, current.prev));
-		while (current.next != null) {
+		System.out.println(String.format("Id: %s - Value: %s - Next: %s", current.toString(), current.value, current.next));
+		while (index < length - 1) {
 			current = current.next;
-			System.out.println(String.format("Id: %s - Value: %s - Next: %s - Pre: %s", current.toString(), current.value,
-					current.next, current.prev));
+			System.out
+					.println(String.format("Id: %s - Value: %s - Next: %s", current.toString(), current.value, current.next));
+			index++;
 		}
 	}
 }
