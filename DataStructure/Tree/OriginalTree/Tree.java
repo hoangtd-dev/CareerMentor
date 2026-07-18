@@ -6,7 +6,7 @@ import javax.swing.tree.BETreeNode;
 public class Tree {
 	public BETreeNode root;
 
-	public BETreeNode BFSearch(int value) {
+	public BETreeNode bfSearch(int value) {
 		Queue<BETreeNode> nodes = new LinkedList<>();
 		nodes.add(root);
 
@@ -24,7 +24,7 @@ public class Tree {
 		return null;
 	}
 
-	public BETreeNode DFSearch(BETreeNode node, int value) {
+	public BETreeNode dfSearch(BETreeNode node, int value) {
 		if (value == node.value)
 			return node;
 
