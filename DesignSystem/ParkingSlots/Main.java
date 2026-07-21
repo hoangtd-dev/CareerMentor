@@ -104,7 +104,7 @@ public class Main {
     }
 
     public static void removeCar(ParkingSlot ticket) {
-        parkingSlots[ticket.row][ticket.column].numberPlate = null;
+        parkingSlots[ticket.row][ticket.column].clearSlot();
 
         if (ticket.row < freeSlot[FREE_ROW_INDEX] || ticket.column < freeSlot[FREE_COLUMN_INDEX]) {
             freeSlot[FREE_ROW_INDEX] = ticket.row;

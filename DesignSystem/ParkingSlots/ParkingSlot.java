@@ -17,4 +17,8 @@ public class ParkingSlot {
 	public boolean hasBooked() {
 		return numberPlate != null;
 	}
+
+	public void clearSlot() {
+		numberPlate = null;
+	}
 }
