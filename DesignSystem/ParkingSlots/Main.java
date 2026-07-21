@@ -84,8 +84,10 @@ public class Main {
             freeSlot[FREE_COLUMN_INDEX] = 0;
         }
 
-        if (freeSlot[FREE_ROW_INDEX] < ROWS.length
-                && parkingSlots[freeSlot[FREE_ROW_INDEX]][freeSlot[FREE_COLUMN_INDEX]].hasBooked()) {
+        if (freeSlot[FREE_ROW_INDEX] > ROWS.length - 1)
+            return;
+
+        if (parkingSlots[freeSlot[FREE_ROW_INDEX]][freeSlot[FREE_COLUMN_INDEX]].hasBooked()) {
             for (int row = freeSlot[FREE_ROW_INDEX]; row < ROWS.length; row++) {
                 for (int column = 0; column < COLUMN_SIZE; column++) {
                     if (parkingSlots[row][column].isEmpty()) {
