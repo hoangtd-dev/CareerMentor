@@ -9,4 +9,12 @@ public class ParkingSlot {
 		this.row = row;
 		this.column = column;
 	}
+
+	public boolean isEmpty() {
+		return numberPlate == null;
+	}
+
+	public boolean hasBooked() {
+		return numberPlate != null;
+	}
 }

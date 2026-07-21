@@ -1,6 +1,8 @@
 public class Main {
-    public static final char[] ROWS = new char[] { 'A', 'B', 'C', 'D' };
-    public static final int COLUMN_SIZE = 5;
+    public static final char[] ROWS = new char[] { 'A', 'B', 'C' };
+    public static final int COLUMN_SIZE = 3;
+    public static final int FREE_ROW_INDEX = 0;
+    public static final int FREE_COLUMN_INDEX = 1;
 
     public static int[] freeSlot = new int[] { 0, 0 };
     public static ParkingSlot[][] parkingSlots;
@@ -21,11 +23,14 @@ public class Main {
         System.out.println("-----------");
 
         removeCar(ticket2);
-        displayParkingSlots();
-        System.out.println("-----------");
-
         ParkingSlot ticket9 = addCar("NSW-9");
         ParkingSlot ticket10 = addCar("NSW-10");
+        removeCar(ticket4);
+        removeCar(ticket7);
+        ParkingSlot ticket11 = addCar("NSW-11");
+        ParkingSlot ticket12 = addCar("NSW-12");
+        ParkingSlot ticket13 = addCar("NSW-13");
+
         displayParkingSlots();
     }
 
@@ -34,10 +39,7 @@ public class Main {
 
         for (int row = 0; row < ROWS.length; row++) {
             for (int column = 0; column < COLUMN_SIZE; column++) {
-                parkingSlots[row][column] = new ParkingSlot(
-                        String.format("%s%d", ROWS[row], column + 1),
-                        row,
-                        column);
+                parkingSlots[row][column] = new ParkingSlot(String.format("%s%d", ROWS[row], column + 1), row, column);
             }
         }
 
@@ -47,7 +49,7 @@ public class Main {
     public static void displayParkingSlots() {
         for (int row = 0; row < ROWS.length; row++) {
             for (int column = 0; column < COLUMN_SIZE; column++) {
-                if (parkingSlots[row][column].numberPlate == null) {
+                if (parkingSlots[row][column].isEmpty()) {
                     System.out.print("Free");
                 } else {
                     System.out.print(parkingSlots[row][column].numberPlate);
@@ -62,28 +64,49 @@ public class Main {
     }
 
     public static ParkingSlot addCar(String numberPlate) {
-        if (freeSlot[0] > ROWS.length - 1) {
-            System.out.println("No slot available !!!");
+        if (freeSlot[FREE_ROW_INDEX] > ROWS.length - 1) {
+            System.out.println("No slot available for your car: " + numberPlate);
             return null;
         }
-        ParkingSlot parkingSlot = parkingSlots[freeSlot[0]][freeSlot[1]];
+        ParkingSlot parkingSlot = parkingSlots[freeSlot[FREE_ROW_INDEX]][freeSlot[FREE_COLUMN_INDEX]];
         parkingSlot.numberPlate = numberPlate;
-        freeSlot[1]++;
 
-        if (freeSlot[1] == COLUMN_SIZE) {
-            freeSlot[0] = freeSlot[0] + 1;
-            freeSlot[1] = 0;
-        }
+        updateFreeSlot();
 
         return parkingSlot;
+    }
+
+    private static void updateFreeSlot() {
+        freeSlot[FREE_COLUMN_INDEX]++;
+
+        if (freeSlot[FREE_COLUMN_INDEX] == COLUMN_SIZE) {
+            freeSlot[FREE_ROW_INDEX] = freeSlot[FREE_ROW_INDEX] + 1;
+            freeSlot[FREE_COLUMN_INDEX] = 0;
+        }
+
+        if (freeSlot[FREE_ROW_INDEX] < ROWS.length
+                && parkingSlots[freeSlot[FREE_ROW_INDEX]][freeSlot[FREE_COLUMN_INDEX]].hasBooked()) {
+            for (int row = freeSlot[FREE_ROW_INDEX]; row < ROWS.length; row++) {
+                for (int column = 0; column < COLUMN_SIZE; column++) {
+                    if (parkingSlots[row][column].isEmpty()) {
+                        freeSlot[FREE_ROW_INDEX] = row;
+                        freeSlot[FREE_COLUMN_INDEX] = column;
+                        return;
+                    }
+                }
+            }
+
+            freeSlot[FREE_ROW_INDEX] = ROWS.length;
+        }
+
     }
 
     public static void removeCar(ParkingSlot ticket) {
         parkingSlots[ticket.row][ticket.column].numberPlate = null;
 
-        if (ticket.row < freeSlot[0] || ticket.column < freeSlot[1]) {
-            freeSlot[0] = ticket.row;
-            freeSlot[1] = ticket.column;
+        if (ticket.row < freeSlot[FREE_ROW_INDEX] || ticket.column < freeSlot[FREE_COLUMN_INDEX]) {
+            freeSlot[FREE_ROW_INDEX] = ticket.row;
+            freeSlot[FREE_COLUMN_INDEX] = ticket.column;
         }
     }
 }
