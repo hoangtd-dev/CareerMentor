@@ -1,8 +1,6 @@
 import java.util.LinkedList;
 import java.util.Queue;
 
-import javax.swing.tree.BETreeNode;
-
 public class Tree {
 	public BETreeNode root;
 
@@ -13,10 +11,10 @@ public class Tree {
 		while (!nodes.isEmpty()) {
 			BETreeNode currentNode = nodes.poll();
 
-			if (currentNode.value)
+			if (currentNode.value == value)
 				return currentNode;
 
-			for (BETreeNode item : nodes.children) {
+			for (BETreeNode item : currentNode.children) {
 				nodes.add(item);
 			}
 		}
@@ -29,7 +27,7 @@ public class Tree {
 			return node;
 
 		for (BETreeNode item : node.children) {
-			BETreeNode result = DFSearch(item, value);
+			BETreeNode result = dfSearch(item, value);
 			if (result != null)
 				return result;
 		}
