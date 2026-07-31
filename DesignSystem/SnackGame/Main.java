@@ -77,13 +77,7 @@ public class Main {
     }
 
     public static boolean isFull() {
-        for (int[] row : map) {
-            for (int column : row) {
-                if (column == CELL_EMPTY)
-                    return false;
-            }
-        }
-        return true;
+        return snackPositions.size() == HEIGHT_SIZE * WIDTH_SIZE - 1;
     }
 
     public static boolean move(int row, int column) {
