@@ -13,8 +13,12 @@ public class Main {
         }
     }
 
-    private static int WIDTH_SIZE = 10;
-    private static int HEIGHT_SIZE = 10;
+    public static int WIDTH_SIZE = 10;
+    public static int HEIGHT_SIZE = 10;
+    public static int BOOM_ID = -1;
+    public static int FRUIT_ID = 1;
+    public static int CELL_EMPTY = 0;
+    public static int SNACK_ID = 2;
     public static int[][] map = new int[WIDTH_SIZE][HEIGHT_SIZE];
     public static LinkedList<SnackPosition> snackPositions = new LinkedList<>();
 
@@ -23,14 +27,14 @@ public class Main {
         boolean isGameContinue = true;
         snackPositions.add(new SnackPosition(0, 0));
         // Add Boom
-        map[1][1] = -1;
-        map[2][3] = -1;
-        map[8][8] = -1;
+        map[1][1] = BOOM_ID;
+        map[2][3] = BOOM_ID;
+        map[8][8] = BOOM_ID;
 
         // Add Fruit
-        map[1][3] = 1;
-        map[5][3] = 1;
-        map[7][7] = 1;
+        map[1][3] = FRUIT_ID;
+        map[5][3] = FRUIT_ID;
+        map[7][7] = FRUIT_ID;
 
         display();
         while (isGameContinue && !isFull()) {
@@ -59,14 +63,14 @@ public class Main {
     }
 
     public static boolean hasBoom(int row, int column) {
-        if (map[row][column] == -1)
+        if (map[row][column] == BOOM_ID)
             return true;
 
         return false;
     }
 
     public static boolean hasFruit(int row, int column) {
-        if (map[row][column] == 1)
+        if (map[row][column] == FRUIT_ID)
             return true;
 
         return false;
@@ -75,7 +79,7 @@ public class Main {
     public static boolean isFull() {
         for (int[] row : map) {
             for (int column : row) {
-                if (column == 0)
+                if (column == CELL_EMPTY)
                     return false;
             }
         }
@@ -102,7 +106,7 @@ public class Main {
         }
 
         if (hasBoom || hasFruit) {
-            map[row][column] = 0;
+            map[row][column] = CELL_EMPTY;
         }
 
         return true;
@@ -151,16 +155,16 @@ public class Main {
         }
 
         for (SnackPosition position : snackPositions) {
-            newArr[position.row][position.column] = 2;
+            newArr[position.row][position.column] = SNACK_ID;
         }
 
         for (int column = 0; column < HEIGHT_SIZE; column++) {
             for (int row = 0; row < WIDTH_SIZE; row++) {
-                if (newArr[row][column] == 1) {
+                if (newArr[row][column] == FRUIT_ID) {
                     System.out.print("+ ");
-                } else if (newArr[row][column] == -1) {
+                } else if (newArr[row][column] == BOOM_ID) {
                     System.out.print("o ");
-                } else if (newArr[row][column] == 2) {
+                } else if (newArr[row][column] == SNACK_ID) {
                     System.out.print("S ");
                 } else {
                     System.out.print("_ ");
