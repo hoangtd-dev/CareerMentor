@@ -14,7 +14,9 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-@WebServlet("/user")
+import com.example.DBConnectionManager;
+
+@WebServlet("/users")
 public class UserServlet extends HttpServlet {
 
     @Override
